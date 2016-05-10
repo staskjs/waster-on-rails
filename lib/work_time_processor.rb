@@ -1,7 +1,9 @@
-class WorkTimeProcessor
-  
-  def get(username, date, count_last_week = 1)
-    
+module WorkTimeProcessor
+  extend self
+
+  def get(username = 'karpov_s', date = nil, count_last_week = 1)
+    work_times = WorkTime.where(user_id: username)
+    get_week_day_minutes(work_times)
   end
 
   private
@@ -16,7 +18,35 @@ class WorkTimeProcessor
   #         minutes: total minutes worked during this interval
   #         in_time: time checked in
   #         out_time: time checked out
-  def get_week_day_minutes
+  def get_week_day_minutes(work_times)
+    work_times.group_by do |work_time|
+      work_time.date.to_date
+    end
+    .values
+    .map do |group|
+      group.in_groups_of(2, nil)
+    end
+    .flatten(1)
+    .map do |entry|
+      in_item = entry.find { |work_time| work_time.in? }
+      out_item = entry.find { |work_time| work_time.try(:out?) }
+
+      minutes =
+        if out_item.nil?
+          TimeDifference.between(in_item.date, Time.now).in_minutes
+        else
+          TimeDifference.between(in_item.date, out_item.date).in_minutes
+        end
+      {
+        day: in_item.date.wday,
+        minutes: minutes,
+        in_item: in_item,
+        out_item: out_item,
+      }
+    end
+  end
+
+  def fill_missing_days
     
   end
 

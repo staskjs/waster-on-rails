@@ -30,7 +30,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'figaro'
+gem 'figaro', '~> 1.1.1'
+
+gem 'time_difference', '~> 0.4.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -43,6 +45,7 @@ group :development, :test do
   gem 'database_cleaner', '~> 1.4.1'
   gem 'faker', '~> 1.4.3'
   gem 'factory_girl_rails', '~> 4.5.0'
+  gem 'guard-rspec', '4.6.4', require: false
 end
 
 group :development do
