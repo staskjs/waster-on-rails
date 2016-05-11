@@ -3,22 +3,21 @@ module WorkTimeProcessor
 
   def get(username = 'karpov_s', date = nil, count_last_week = 1)
     work_times = WorkTime.where(user_id: username)
-    get_week_day_minutes(work_times)
+    intervals = get_work_intervals(work_times)
   end
 
   private
 
-  # Get information about worked time for given raw data
+  # Get information about worked intervals for given raw data
   # @param work_times raw WorkTime models
   #
   # @return array of objects with structure:
-  #     fake: boolean - whether user did not check in this day
-  #     day: integer - iso weekday (ordinal weekday number)
-  #     times: array of time interval objects with structore:
-  #         minutes: total minutes worked during this interval
-  #         in_time: time checked in
-  #         out_time: time checked out
-  def get_week_day_minutes(work_times)
+  #     day: weekday (ordinal weekday number)
+  #     minutes: total minutes worked during this interval
+  #     in_time: time checked in
+  #     out_time: time checked out
+  #     finished: is interval finished
+  def get_work_intervals(work_times)
     work_times.group_by do |work_time|
       work_time.date.to_date
     end
@@ -42,6 +41,7 @@ module WorkTimeProcessor
         minutes: minutes,
         in_item: in_item,
         out_item: out_item,
+        finished: out_item.present?,
       }
     end
   end
