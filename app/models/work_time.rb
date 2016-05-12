@@ -1,7 +1,5 @@
 class WorkTime < ActiveRecord::Base
-  
   def get
-
   end
 
   def in?
