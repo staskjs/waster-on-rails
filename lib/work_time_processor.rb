@@ -3,6 +3,7 @@ module WorkTimeProcessor
 
   # Get statistics for selected user since the beginning of selected date
   # for selected time frame (week or month)
+  #
   def get(username = 'karpov_s', date = nil, time_frame = 'week', count_last = 1)
     date = Date.current if date.nil?
 
@@ -18,7 +19,8 @@ module WorkTimeProcessor
       .where('DATE(date) >= ?', start_date)
       .where('DATE(date) <= ?', end_date)
 
-    intervals = get_work_intervals(work_times)
+    # intervals = get_work_intervals(work_times)
+    total_work_minutes(start_date, end_date)
   end
 
   private
@@ -67,19 +69,36 @@ module WorkTimeProcessor
   end
 
   # Get how many minutes should be worked in a particular date
+  #
+  # @param date selected date
+  #
+  # @return number of minutes in selected date
+  #
   def get_minutes_in_day(date)
-    hours = special_days.days[date] || 8.5
+    hours = special_days[:days][date.to_s] || 8.5
     hours * 60
   end
 
   def special_days
     {
       weeks: {
-
       },
       days: {
-
       },
     }
+  end
+
+  # Get total amount of minutes user have to work during selected date interval
+  #
+  # @param start_date interval starting point
+  # @param end_date interval ending point
+  #
+  # @return number of work minutes in this interval
+  #
+  def total_work_minutes(start_date, end_date)
+     (start_date..end_date).inject(0) do |minutes, date|
+       minutes += get_minutes_in_day(date)
+       minutes
+     end
   end
 end
