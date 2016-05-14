@@ -14,8 +14,8 @@
 ActiveRecord::Schema.define(version: 20160507105644) do
 
   create_table "work_times", force: :cascade do |t|
-    t.datetime "date"
-    t.string   "direction"
+    t.datetime "time_in"
+    t.datetime "time_out"
     t.string   "user_id"
   end
 

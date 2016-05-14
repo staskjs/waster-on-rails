@@ -16,11 +16,18 @@ module WorkTimeProcessor
     work_times =
       WorkTime
       .where(user_id: username)
-      .where('DATE(date) >= ?', start_date)
-      .where('DATE(date) <= ?', end_date)
+      .where('DATE(time_in) >= ?', start_date)
+      .where('DATE(time_in) <= ?', end_date)
+      .order(:time_in)
 
-    # intervals = get_work_intervals(work_times)
-    total_work_minutes(start_date, end_date)
+    intervals = get_work_intervals(work_times)
+    return intervals
+
+    # Total number of minutes to work
+    total_minutes = total_work_minutes(start_date, end_date)
+
+    # How many minutes is left to work
+    left_minutes = total_minutes
   end
 
   private
@@ -38,30 +45,9 @@ module WorkTimeProcessor
   def get_work_intervals(work_times)
     work_times
       .group_by do |work_time|
-        work_time.date.to_date
+        work_time.time_in.to_date
       end
       .values
-      .flat_map do |group|
-        group.in_groups_of(2, nil)
-      end
-      .map do |entry|
-        in_item = entry.find(&:in?)
-        out_item = entry.find { |work_time| work_time.try(:out?) }
-
-        minutes =
-          if out_item.nil?
-            TimeDifference.between(in_item.date, Time.current).in_minutes
-          else
-            TimeDifference.between(in_item.date, out_item.date).in_minutes
-          end
-        {
-          day: in_item.date.wday,
-          minutes: minutes,
-          in_item: in_item,
-          out_item: out_item,
-          finished: out_item.present?,
-        }
-      end
   end
 
   #
@@ -101,4 +87,5 @@ module WorkTimeProcessor
        minutes
      end
   end
+
 end
