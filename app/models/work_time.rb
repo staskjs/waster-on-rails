@@ -15,4 +15,14 @@ class WorkTime < ActiveRecord::Base
       TimeDifference.between(time_in, Time.current).in_minutes
     end
   end
+
+  def day
+    time_in.wday
+  end
+
+  # Amount of minutes that should be worked in this day
+  #
+  def minutes_to_work
+    WorkTimeProcessor.get_minutes_in_day(time_in)
+  end
 end

@@ -20,38 +20,40 @@ module WorkTimeProcessor
       .where('DATE(time_in) <= ?', end_date)
       .order(:time_in)
 
-    intervals = get_work_intervals(work_times)
-    return intervals
-
     # Total number of minutes to work
     total_minutes = total_work_minutes(start_date, end_date)
 
     # How many minutes is left to work
     left_minutes = total_minutes
-  end
 
-  private
+    get_work_intervals(work_times).each do |intervals|
+      work_day_minutes = intervals.first.minutes_to_work
 
-  # Get information about worked intervals for given raw data
-  # @param work_times raw WorkTime models
-  #
-  # @return array of objects with structure:
-  #     day: weekday (ordinal weekday number)
-  #     minutes: total minutes worked during this interval
-  #     in_time: time checked in
-  #     out_time: time checked out
-  #     finished: is interval finished
-  #
-  def get_work_intervals(work_times)
-    work_times
-      .group_by do |work_time|
-        work_time.time_in.to_date
+      left_today =
+        if left_minutes >= work_day_minutes
+          work_day_minutes
+        else
+          left_minutes
+        end
+
+      # Amount of minutes worked during this day
+      total_worked = intervals.sum(&:minutes_worked)
+
+      # Indicates whether user worked more or less in that day, than he should
+      # true - more, false - less
+      total_worked_more = total_worked > left_today
+
+      # Difference between minutes user worked and minutes he has to work
+      # Basically shows how many minutes he has over or underworked
+      total_minutes_of_diff = (left_today - total_worked).abs
+
+      # TODO: count total diff minutes
+
+      intervals.each do |work_time|
+        
       end
-      .values
-  end
 
-  #
-  def fill_missing_days(intervals)
+    end
   end
 
   # Get how many minutes should be worked in a particular date
@@ -63,6 +65,25 @@ module WorkTimeProcessor
   def get_minutes_in_day(date)
     hours = special_days[:days][date.to_s] || 8.5
     hours * 60
+  end
+
+  private
+
+  # Group raw work_times models by date
+  # @param work_times raw WorkTime models
+  #
+  # @return array of arrays of WorkTimes
+  #
+  def get_work_intervals(work_times)
+    work_times
+      .group_by do |work_time|
+        work_time.time_in.to_date
+      end
+      .values
+  end
+
+  #
+  def fill_missing_days(intervals)
   end
 
   def special_days
@@ -87,5 +108,4 @@ module WorkTimeProcessor
        minutes
      end
   end
-
 end
