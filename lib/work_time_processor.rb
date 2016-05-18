@@ -21,12 +21,13 @@ module WorkTimeProcessor
       .order(:time_in)
 
     # Total number of minutes to work
+    # TODO: subtract weekends and holidays
     total_minutes = total_work_minutes(start_date, end_date)
 
     # How many minutes is left to work
     left_minutes = total_minutes
 
-    get_work_intervals(work_times).each do |intervals|
+    get_work_intervals(work_times).map do |intervals|
       work_day_minutes = intervals.first.minutes_to_work
 
       left_today =
@@ -41,7 +42,7 @@ module WorkTimeProcessor
 
       # Indicates whether user worked more or less in that day, than he should
       # true - more, false - less
-      total_worked_more = total_worked > left_today
+      is_total_worked_more = total_worked > left_today
 
       # Difference between minutes user worked and minutes he has to work
       # Basically shows how many minutes he has over or underworked
@@ -49,9 +50,14 @@ module WorkTimeProcessor
 
       # TODO: count total diff minutes
 
-      intervals.each do |work_time|
-        
-      end
+      left_minutes -= total_worked
+
+      {
+        intervals: intervals,
+        total_worked: total_worked,
+        total_worked_more: is_total_worked_more,
+        total_minutes_of_diff: total_minutes_of_diff,
+      }
 
     end
   end
@@ -103,9 +109,9 @@ module WorkTimeProcessor
   # @return number of work minutes in this interval
   #
   def total_work_minutes(start_date, end_date)
-     (start_date..end_date).inject(0) do |minutes, date|
-       minutes += get_minutes_in_day(date)
-       minutes
-     end
+    (start_date..end_date).inject(0) do |minutes, date|
+      minutes += get_minutes_in_day(date)
+      minutes
+    end
   end
 end
