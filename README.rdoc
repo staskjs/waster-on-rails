@@ -1,28 +1,9 @@
-== README
+== WASTER
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Reimplementation of time tracker app to Ruby on Rails.
 
-Things you may want to cover:
+It is an app that helps to track your time spent on anything, mostly on work.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+You can define amount of hours that you should spend on desired activity (e.g. 40
+hours of work) during some time interval (e.g. a week). Then you just click start
+and then click finish.
