@@ -20,6 +20,9 @@ module WorkTimeProcessor
       .where('DATE(time_in) <= ?', end_date)
       .order(:time_in)
 
+    # TODO: add ability to specify amount of day offs in a week
+    # 2 by default
+
     # Total number of minutes to work
     # TODO: subtract weekends and holidays
     total_minutes = total_work_minutes(start_date, end_date)
@@ -52,14 +55,23 @@ module WorkTimeProcessor
 
       left_minutes -= total_worked
 
+      is_finished = intervals.all?(&:finished?)
+
       {
         intervals: intervals,
         total_worked: total_worked,
         total_worked_more: is_total_worked_more,
         total_minutes_of_diff: total_minutes_of_diff,
+        is_finished: is_finished,
       }
 
     end
+    
+    # TODO: total overtime (or undertime)
+    # TODO: how many minutes left to work
+    # TODO: when to finish work (distributed overtime between rest of days)
+    # TODO: when to finish work (start of work + daily hours)
+
   end
 
   # Get how many minutes should be worked in a particular date
