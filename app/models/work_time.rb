@@ -19,10 +19,4 @@ class WorkTime < ActiveRecord::Base
   def day
     time_in.wday
   end
-
-  # Amount of minutes that should be worked in this day
-  #
-  def minutes_to_work
-    WorkTimeProcessor.get_minutes_in_day(time_in)
-  end
 end

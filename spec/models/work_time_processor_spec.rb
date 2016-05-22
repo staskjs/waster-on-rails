@@ -15,6 +15,7 @@ describe 'WorkTimeProcessor' do
   end
   it 'test' do
     # ap WorkTimeProcessor.get('stub', Date.new(2016, 04, 30), 'week')
-    ap WorkTimeProcessor.get('stub')
+    processor = WorkTimeProcessor.new('stub')
+    ap processor.get
   end
 end

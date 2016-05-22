@@ -1,10 +1,18 @@
-module WorkTimeProcessor
-  extend self
+class WorkTimeProcessor
+  attr_reader :username
+  attr_reader :days_off
+  attr_reader :daily_hours
+
+  def initialize(username)
+    @username = username
+    @days_off = [0, 6]
+    @daily_hours = 8.5
+  end
 
   # Get statistics for selected user since the beginning of selected date
   # for selected time frame (week or month)
   #
-  def get(username = 'karpov_s', date = nil, time_frame = 'week', count_last = 1)
+  def get(date = nil, time_frame = 'week', count_last = 1)
     date = Date.current if date.nil?
 
     start_date, end_date =
@@ -20,9 +28,6 @@ module WorkTimeProcessor
       .where('DATE(time_in) <= ?', end_date)
       .order(:time_in)
 
-    # TODO: add ability to specify amount of day offs in a week
-    # 2 by default
-
     # Total number of minutes to work
     # TODO: subtract weekends and holidays
     total_minutes = total_work_minutes(start_date, end_date)
@@ -31,7 +36,7 @@ module WorkTimeProcessor
     left_minutes = total_minutes
 
     get_work_intervals(work_times).map do |intervals|
-      work_day_minutes = intervals.first.minutes_to_work
+      work_day_minutes = get_minutes_in_day(intervals.first.time_in)
 
       left_today =
         if left_minutes >= work_day_minutes
@@ -64,14 +69,12 @@ module WorkTimeProcessor
         total_minutes_of_diff: total_minutes_of_diff,
         is_finished: is_finished,
       }
-
     end
-    
+
     # TODO: total overtime (or undertime)
     # TODO: how many minutes left to work
     # TODO: when to finish work (distributed overtime between rest of days)
     # TODO: when to finish work (start of work + daily hours)
-
   end
 
   # Get how many minutes should be worked in a particular date
@@ -81,8 +84,20 @@ module WorkTimeProcessor
   # @return number of minutes in selected date
   #
   def get_minutes_in_day(date)
-    hours = special_days[:days][date.to_s] || 8.5
+    hours = self.class.special_days[:days][date.to_s] || daily_hours
     hours * 60
+  end
+
+  # Days that differ from common
+  # E.g. special holidays or short days, etc.
+  #
+  def self.special_days
+    {
+      weeks: {
+      },
+      days: {
+      },
+    }
   end
 
   private
@@ -102,15 +117,6 @@ module WorkTimeProcessor
 
   #
   def fill_missing_days(intervals)
-  end
-
-  def special_days
-    {
-      weeks: {
-      },
-      days: {
-      },
-    }
   end
 
   # Get total amount of minutes user have to work during selected date interval
