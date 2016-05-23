@@ -100,6 +100,22 @@ class WorkTimeProcessor
     }
   end
 
+  # Get total amount of minutes user have to work during selected date interval
+  #
+  # @param start_date interval starting point
+  # @param end_date interval ending point
+  #
+  # @return number of work minutes in this interval
+  #
+  def total_work_minutes(start_date, end_date)
+    (start_date..end_date).inject(0) do |minutes, date|
+      if @days_off.exclude?(date.wday)
+        minutes += get_minutes_in_day(date)
+      end
+      minutes
+    end
+  end
+
   private
 
   # Group raw work_times models by date
@@ -117,19 +133,5 @@ class WorkTimeProcessor
 
   #
   def fill_missing_days(intervals)
-  end
-
-  # Get total amount of minutes user have to work during selected date interval
-  #
-  # @param start_date interval starting point
-  # @param end_date interval ending point
-  #
-  # @return number of work minutes in this interval
-  #
-  def total_work_minutes(start_date, end_date)
-    (start_date..end_date).inject(0) do |minutes, date|
-      minutes += get_minutes_in_day(date)
-      minutes
-    end
   end
 end
