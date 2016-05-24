@@ -29,7 +29,7 @@ class WorkTimeProcessor
       .order(:time_in)
 
     # Total number of minutes to work
-    # TODO: subtract weekends and holidays
+    # TODO: subtract holidays
     total_minutes = total_work_minutes(start_date, end_date)
 
     # How many minutes is left to work
@@ -109,7 +109,7 @@ class WorkTimeProcessor
   #
   def total_work_minutes(start_date, end_date)
     (start_date..end_date).inject(0) do |minutes, date|
-      if @days_off.exclude?(date.wday)
+      if days_off.exclude?(date.wday)
         minutes += get_minutes_in_day(date)
       end
       minutes

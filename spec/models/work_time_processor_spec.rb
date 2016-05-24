@@ -31,6 +31,15 @@ describe 'WorkTimeProcessor' do
       expect(minutes).to eq 22 * 8.5 * 60
     end
 
+    it 'friday as holiday' do
+      allow(@processor).to receive(:days_off).and_return([0, 5, 6])
+      minutes = @processor.total_work_minutes(Date.current.beginning_of_week, Date.current.end_of_week)
+      expect(minutes).to eq 4 * 8.5 * 60
+
+      minutes = @processor.total_work_minutes(Date.current.beginning_of_month, Date.current.end_of_month)
+      expect(minutes).to eq 18 * 8.5 * 60
+    end
+
     describe 'special days' do
       it 'holidays' do
 
