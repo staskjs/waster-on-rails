@@ -2,17 +2,18 @@ class WorkTimeProcessor
   attr_reader :username
   attr_reader :days_off
   attr_reader :daily_hours
+  attr_reader :days
+  attr_reader :left_minutes
+  attr_reader :total_overtime
 
-  def initialize(username)
+
+  def initialize(username, date = nil, time_frame = 'week', count_last = 1)
     @username = username
     @days_off = [0, 6]
     @daily_hours = 8.5
-  end
 
-  # Get statistics for selected user since the beginning of selected date
-  # for selected time frame (week or month)
-  #
-  def get(date = nil, time_frame = 'week', count_last = 1)
+    # Get statistics for selected user since the beginning of selected date
+    # for selected time frame (week or month)
     date = Date.current if date.nil?
 
     start_date, end_date =
@@ -33,9 +34,9 @@ class WorkTimeProcessor
     total_minutes = total_work_minutes(start_date, end_date)
 
     # How many minutes is left to work
-    left_minutes = total_minutes
+    @left_minutes = total_minutes
 
-    get_work_intervals(work_times).map do |intervals|
+    @days = get_work_intervals(work_times).map do |intervals|
       work_day_minutes = get_minutes_in_day(intervals.first.time_in)
 
       left_today =
@@ -48,9 +49,10 @@ class WorkTimeProcessor
       # Amount of minutes worked during this day
       total_worked = intervals.sum(&:minutes_worked)
 
-      # Indicates whether user worked more or less in that day, than he should
-      # true - more, false - less
-      is_total_worked_more = total_worked > left_today
+      # Indicates whether user worked more or less (overtime or undertime) in that day,
+      # than he should
+      # true - overtime, false - undertime
+      is_overtime = total_worked > left_today
 
       # Difference between minutes user worked and minutes he has to work
       # Basically shows how many minutes he has over or underworked
@@ -58,21 +60,20 @@ class WorkTimeProcessor
 
       # TODO: count total diff minutes
 
-      left_minutes -= total_worked
-
       is_finished = intervals.all?(&:finished?)
 
       {
         intervals: intervals,
         total_worked: total_worked,
-        total_worked_more: is_total_worked_more,
+        is_overtime: is_overtime,
         total_minutes_of_diff: total_minutes_of_diff,
         is_finished: is_finished,
       }
     end
 
-    # TODO: total overtime (or undertime)
-    # TODO: how many minutes left to work
+    @left_minutes -= @days.sum { |day| day[:total_worked] }
+    @total_overtime = @days.sum { |day| day[:is_overtime] ? day[:total_minutes_of_diff] : -day[:total_minutes_of_diff] }
+
     # TODO: when to finish work (distributed overtime between rest of days)
     # TODO: when to finish work (start of work + daily hours)
   end

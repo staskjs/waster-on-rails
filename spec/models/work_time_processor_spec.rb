@@ -10,6 +10,9 @@ describe 'WorkTimeProcessor' do
     create(:work_time, time_in: '2016-05-05 09:00', time_out: '2016-05-05 11:00')
     create(:work_time, time_in: '2016-05-05 14:00')
 
+    # 22 hours worked + 3.5 hours until now
+    # overtimes: -1.5, 0.5, -4.5, -3
+
     @time_now = Time.new(2016, 5, 5, 17, 30, 0, 0)
     allow(Time).to receive(:now).and_return(@time_now)
 
@@ -17,7 +20,17 @@ describe 'WorkTimeProcessor' do
   end
   it 'test' do
     # ap WorkTimeProcessor.get('stub', Date.new(2016, 04, 30), 'week')
-    ap @processor.get
+    ap @processor.days
+  end
+
+  it 'left_minutes' do
+    left_minutes = (42.5 - 22 - 3.5) * 60
+    expect(@processor.left_minutes).to eq left_minutes
+  end
+
+  it 'total_overtime' do
+    total_overtime = (-1.5 + 0.5 - 4.5 - 3) * 60
+    expect(@processor.total_overtime).to eq total_overtime
   end
 
   describe 'work minutes' do
