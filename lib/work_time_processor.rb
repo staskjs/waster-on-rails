@@ -37,7 +37,9 @@ class WorkTimeProcessor
     @left_minutes = total_work_minutes
 
     @days = get_work_intervals(work_times).map do |intervals|
-      work_day_minutes = get_minutes_in_day(intervals.first.time_in)
+      date = intervals.first.time_in.to_date
+
+      work_day_minutes = get_minutes_in_day(date)
 
       left_today =
         if left_minutes >= work_day_minutes
@@ -62,6 +64,7 @@ class WorkTimeProcessor
 
       {
         intervals: intervals,
+        date: date,
         total_worked: total_worked,
         is_overtime: is_overtime,
         overtime_minutes: overtime_minutes,
@@ -115,9 +118,19 @@ class WorkTimeProcessor
     end
   end
 
+  # Get @days with included missing days
+  # Missed day is a day when user should have checked in, but didn't
+  # By default they are counted as checked in
+  #
+  def with_missing_days
+    # TODO: add missing days
+    @days
+  end
+
   private
 
   # Group raw work_times models by date
+  #
   # @param work_times raw WorkTime models
   #
   # @return array of arrays of WorkTimes
@@ -128,10 +141,5 @@ class WorkTimeProcessor
         work_time.time_in.to_date
       end
       .values
-  end
-
-  #
-  def with_missing_days
-    
   end
 end
