@@ -35,21 +35,24 @@ describe 'WorkTimeProcessor' do
 
   describe 'work minutes' do
     it 'week' do
-      minutes = @processor.total_work_minutes(Date.current.beginning_of_week, Date.current.end_of_week)
+      minutes = @processor.total_work_minutes
       expect(minutes).to eq 5 * 8.5 * 60
     end
 
     it 'month' do
-      minutes = @processor.total_work_minutes(Date.current.beginning_of_month, Date.current.end_of_month)
+      @processor = WorkTimeProcessor.new('stub', nil, 'month')
+      minutes = @processor.total_work_minutes
       expect(minutes).to eq 22 * 8.5 * 60
     end
 
     it 'friday as holiday' do
       allow(@processor).to receive(:days_off).and_return([0, 5, 6])
-      minutes = @processor.total_work_minutes(Date.current.beginning_of_week, Date.current.end_of_week)
+      minutes = @processor.total_work_minutes
       expect(minutes).to eq 4 * 8.5 * 60
 
-      minutes = @processor.total_work_minutes(Date.current.beginning_of_month, Date.current.end_of_month)
+      @processor = WorkTimeProcessor.new('stub', nil, 'month')
+      allow(@processor).to receive(:days_off).and_return([0, 5, 6])
+      minutes = @processor.total_work_minutes
       expect(minutes).to eq 18 * 8.5 * 60
     end
 
