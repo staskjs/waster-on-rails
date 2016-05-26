@@ -6,6 +6,5 @@ class ApplicationController < ActionController::Base
   include JsEnv
 
   def index
-
   end
 end

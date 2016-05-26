@@ -6,7 +6,6 @@ class WorkTimeProcessor
   attr_reader :left_minutes
   attr_reader :total_overtime
 
-
   def initialize(username, date = nil, time_frame = 'week', count_last = 1)
     @username = username
     @days_off = [0, 6]
@@ -31,7 +30,6 @@ class WorkTimeProcessor
       .where('DATE(time_in) >= ?', @start_date)
       .where('DATE(time_in) <= ?', @end_date)
       .order(:time_in)
-
 
     # How many minutes is left to work
     @left_minutes = total_work_minutes
@@ -92,6 +90,7 @@ class WorkTimeProcessor
 
   # Days that differ from common
   # E.g. special holidays or short days, etc.
+  # TODO: move to separate model
   #
   def self.special_days
     {
@@ -111,9 +110,8 @@ class WorkTimeProcessor
   #
   def total_work_minutes
     (@start_date..@end_date).inject(0) do |minutes, date|
-      if days_off.exclude?(date.wday)
-        minutes += get_minutes_in_day(date)
-      end
+      # Do not count days off
+      minutes += get_minutes_in_day(date) if days_off.exclude?(date.wday)
       minutes
     end
   end

@@ -66,11 +66,9 @@ describe 'WorkTimeProcessor' do
 
     describe 'special days' do
       it 'holidays' do
-
       end
 
       it 'short day' do
-
       end
     end
   end
