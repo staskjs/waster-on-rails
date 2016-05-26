@@ -12,8 +12,11 @@
 //
 //= require sugar
 //
+//= require jquery
+//= require bootstrap
 //= require angular
 //= require angular-route
 //= require angular-translate
+//= require angular-bootstrap
 //
 //= require ./init

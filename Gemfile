@@ -38,8 +38,9 @@ gem 'time_difference', '~> 0.4.2'
 gem 'rails-assets-angular', '~> 1.5.5'
 gem 'rails-assets-angular-route', '~> 1.5.5'
 gem 'rails-assets-angular-translate', '~> 2.11.0'
-
 gem 'rails-assets-sugar', '~> 1.4.1'
+gem 'rails-assets-angular-bootstrap', '~> 1.3.3'
+gem 'rails-assets-bootstrap', '3.3.6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -53,6 +54,8 @@ group :development, :test do
   gem 'faker', '~> 1.4.3'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'guard-rspec', '4.6.4', require: false
+
+  gem 'quiet_assets', '1.1.0'
 end
 
 group :development do
