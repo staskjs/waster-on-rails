@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+source 'https://rails-assets.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
@@ -32,6 +33,13 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'figaro', '~> 1.1.1'
 
 gem 'time_difference', '~> 0.4.2'
+
+# assets
+gem 'rails-assets-angular', '~> 1.5.5'
+gem 'rails-assets-angular-route', '~> 1.5.5'
+gem 'rails-assets-angular-translate', '~> 2.11.0'
+
+gem 'rails-assets-sugar', '~> 1.4.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -23,7 +23,7 @@ default: &default
   host: <%= Figaro.env.db_host %>
   database: <%= Figaro.env.db_name %>
   username: <%= Figaro.env.db_user %>
-  password: <%= Figaro.env.db_password %>
+  password: <%= Figaro.env.db_pass %>
 
 development:
   <<: *default
