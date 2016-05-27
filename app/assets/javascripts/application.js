@@ -20,3 +20,5 @@
 //= require angular-bootstrap
 //
 //= require ./init
+//= require_directory ./controllers
+//= require_directory ./services
