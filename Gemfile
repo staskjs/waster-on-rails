@@ -42,6 +42,9 @@ gem 'rails-assets-sugar', '~> 1.4.1'
 gem 'rails-assets-angular-bootstrap', '~> 1.3.3'
 gem 'rails-assets-bootstrap', '3.3.6'
 
+group :test do
+  gem 'faker', '~> 1.4.3'
+end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 8.2.5'
@@ -51,7 +54,6 @@ group :development, :test do
   gem 'sqlite3', '~> 1.3.11'
   gem 'rspec-rails', '~> 3.4.2'
   gem 'database_cleaner', '~> 1.4.1'
-  gem 'faker', '~> 1.4.3'
   gem 'factory_girl_rails', '~> 4.5.0'
   gem 'guard-rspec', '4.6.4', require: false
 

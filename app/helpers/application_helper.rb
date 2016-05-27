@@ -1,15 +1,15 @@
 module ApplicationHelper
   def js_env
-    templates = Hash[
+    assets = Hash[
       Rails.application.assets.each_file
-           .select { |file| file.include?(Rails.root.to_s) && file.end_with?('html', 'json') }
+           .select { |file| file.include?(Rails.root.to_s) && file.end_with?('html', 'json', 'json.erb') }
            .map { |file| Rails.application.assets.find_asset(file).logical_path }
            .map { |file| [file, asset_path(file)] }
     ]
 
     data = {
       env: Rails.env,
-      templates: templates,
+      assets: assets,
       app_name: Rails.application.class.parent_name
     }
 
