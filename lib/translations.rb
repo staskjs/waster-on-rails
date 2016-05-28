@@ -26,7 +26,7 @@ class Translations
       if value.is_a?(Hash)
         flatten_hash(value, parent + [key])
       else
-        {(parent + [key]).join('.') => value}
+        { (parent + [key]).join('.') => value }
       end
     end.inject({}, :merge)
   end

@@ -9,7 +9,11 @@
 </head>
 <body ng-app="<%= Rails.application.class.parent_name %>">
 
-  <div class="container" ng-view></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2" ng-view></div>
+    </div>
+  </div>
 
   </body>
 </html>
