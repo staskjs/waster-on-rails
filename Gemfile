@@ -42,6 +42,8 @@ gem 'rails-assets-sugar', '~> 1.4.1'
 gem 'rails-assets-angular-bootstrap', '~> 1.3.3'
 gem 'rails-assets-bootstrap', '3.3.6'
 
+gem 'ngannotate-rails', '~> 1.2.2'
+
 group :test do
   gem 'faker', '~> 1.4.3'
 end

@@ -109,6 +109,9 @@ GEM
     minitest (5.8.4)
     multi_json (1.12.0)
     nenv (0.3.0)
+    ngannotate-rails (1.2.2)
+      execjs
+      rails (>= 3.1)
     nokogiri (1.6.7.2)
       mini_portile2 (~> 2.0.0.rc2)
     notiffany (0.0.8)
@@ -237,6 +240,7 @@ DEPENDENCIES
   guard-rspec (= 4.6.4)
   jbuilder (~> 2.0)
   jquery-rails
+  ngannotate-rails (~> 1.2.2)
   pg (~> 0.15)
   quiet_assets (= 1.1.0)
   rails (= 4.2.6)
