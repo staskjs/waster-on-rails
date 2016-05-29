@@ -1,1 +1,2 @@
-@app.controller 'WorkTimeCtrl', ($scope) ->
+@app.controller 'WorkTimeCtrl', ($scope, WorkTime) ->
+  WorkTime.get()
