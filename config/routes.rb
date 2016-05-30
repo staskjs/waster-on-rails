@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'application#index'
 
-  namespace :api, defaults: {format: :json} do
+  namespace :api, defaults: { format: :json } do
     scope :work_time, controller: :work_time do
       get '', action: :index
     end

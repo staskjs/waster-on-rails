@@ -6,7 +6,7 @@ class WorkTimeProcessor
   attr_reader :left_minutes
   attr_reader :total_overtime
 
-  def initialize(username, date = nil, time_frame = 'week', count_last = 1)
+  def initialize(username, date = nil, time_frame = 'week', _count_last = 1)
     @username = username
     @days_off = [0, 6]
     @daily_hours = 8.5
@@ -60,20 +60,19 @@ class WorkTimeProcessor
 
       is_finished = intervals.all?(&:finished?)
 
-      {
-        intervals: intervals,
-        date: date,
-        total_worked: total_worked,
-        is_overtime: is_overtime,
-        overtime_minutes: overtime_minutes,
-        is_finished: is_finished,
-        is_missing: false,
-        is_day_off: day_off?(date),
-      }
+      WorkDay.new(intervals: intervals,
+                  date: date,
+                  total_worked: total_worked,
+                  is_overtime: is_overtime,
+                  overtime_minutes: overtime_minutes,
+                  is_finished: is_finished,
+                  is_missing: false,
+                  is_day_off: day_off?(date))
+
     end
 
-    @left_minutes -= @days.sum { |day| day[:total_worked] }
-    @total_overtime = @days.sum { |day| day[:is_overtime] ? day[:overtime_minutes] : -day[:overtime_minutes] }
+    @left_minutes -= @days.sum(&:total_worked)
+    @total_overtime = @days.sum { |day| day.is_overtime ? day.overtime_minutes : -day.overtime_minutes }
 
     # TODO: when to finish work (distributed overtime between rest of days)
     # TODO: when to finish work (start of work + daily hours)
@@ -123,23 +122,18 @@ class WorkTimeProcessor
   # By default they are counted as checked in
   #
   def with_missing_days
-    # TODO: add missing days
-    @dates = days.map { |day| day[:date] }
+    @dates = days.map(&:date)
     (@start_date..@end_date).map do |date|
-      if @dates.include?(date)
-        next days.select { |day| day[:date] == date }
-      end
+      next days.select { |day| day.date == date } if @dates.include?(date)
 
-      {
-        intervals: [],
-        date: date,
-        total_worked: 0,
-        is_overtime: false,
-        overtime_minutes: 0,
-        is_finished: true,
-        is_missing: true,
-        is_day_off: day_off?(date),
-      }
+      WorkDay.new(intervals: [],
+                  date: date,
+                  total_worked: 0,
+                  is_overtime: false,
+                  overtime_minutes: 0,
+                  is_finished: true,
+                  is_missing: true,
+                  is_day_off: day_off?(date))
 
     end
   end

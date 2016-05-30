@@ -34,6 +34,8 @@ gem 'figaro', '~> 1.1.1'
 
 gem 'time_difference', '~> 0.4.2'
 
+gem 'hashie', '~> 3.4.4'
+
 # assets
 gem 'rails-assets-angular', '~> 1.5.5'
 gem 'rails-assets-angular-route', '~> 1.5.5'
@@ -47,6 +49,7 @@ gem 'ngannotate-rails', '~> 1.2.2'
 group :test do
   gem 'faker', '~> 1.4.3'
 end
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 8.2.5'
