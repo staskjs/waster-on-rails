@@ -67,6 +67,8 @@ class WorkTimeProcessor
         is_overtime: is_overtime,
         overtime_minutes: overtime_minutes,
         is_finished: is_finished,
+        is_missing: false,
+        is_day_off: day_off?(date),
       }
     end
 
@@ -111,7 +113,7 @@ class WorkTimeProcessor
   def total_work_minutes
     (@start_date..@end_date).inject(0) do |minutes, date|
       # Do not count days off
-      minutes += get_minutes_in_day(date) if days_off.exclude?(date.wday)
+      minutes += get_minutes_in_day(date) unless day_off?(date)
       minutes
     end
   end
@@ -122,7 +124,24 @@ class WorkTimeProcessor
   #
   def with_missing_days
     # TODO: add missing days
-    @days
+    @dates = days.map { |day| day[:date] }
+    (@start_date..@end_date).map do |date|
+      if @dates.include?(date)
+        next days.select { |day| day[:date] == date }
+      end
+
+      {
+        intervals: [],
+        date: date,
+        total_worked: 0,
+        is_overtime: false,
+        overtime_minutes: 0,
+        is_finished: true,
+        is_missing: true,
+        is_day_off: day_off?(date),
+      }
+
+    end
   end
 
   private
@@ -140,4 +159,9 @@ class WorkTimeProcessor
       end
       .values
   end
+
+  def day_off?(date)
+    days_off.include?(date.wday)
+  end
+
 end

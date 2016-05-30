@@ -20,15 +20,15 @@ describe 'WorkTimeProcessor' do
   end
   it 'default days (current date, for week)' do
     # ap WorkTimeProcessor.get('stub', Date.new(2016, 04, 30), 'week')
-    ap @processor.days
+    # ap @processor.days
 
     expect(@processor.days.length).to eq 4
   end
 
   it 'missing days' do
     days = @processor.with_missing_days
-    expect(days.length).to eq 5
-    expect(days.last.date).to eq Date.new(2016, 5, 6)
+    expect(days.length).to eq 7
+    expect(days.last[:date]).to eq Date.new(2016, 5, 8)
   end
 
   it 'left_minutes' do
