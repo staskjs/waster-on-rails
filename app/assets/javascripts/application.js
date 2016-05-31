@@ -12,6 +12,7 @@
 //
 //= require sugar
 //
+//= require moment
 //= require jquery
 //= require bootstrap
 //= require angular
@@ -20,5 +21,6 @@
 //= require angular-bootstrap
 //
 //= require ./init
+//= require ./filters
 //= require_directory ./controllers
 //= require_directory ./services

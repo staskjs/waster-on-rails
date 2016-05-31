@@ -7,7 +7,7 @@
   $httpProvider.interceptors.push('railsAssetsInterceptor')
 
   $translateProvider.useLoader('railsLocalesLoader')
-  $translateProvider.preferredLanguage('en')
+  $translateProvider.preferredLanguage('ru')
 
   $routeProvider
     .when('/',

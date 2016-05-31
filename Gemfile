@@ -36,6 +36,8 @@ gem 'time_difference', '~> 0.4.2'
 
 gem 'hashie', '~> 3.4.4'
 
+gem 'russian', '~> 0.6.0'
+
 # assets
 gem 'rails-assets-angular', '~> 1.5.5'
 gem 'rails-assets-angular-route', '~> 1.5.5'
@@ -43,6 +45,7 @@ gem 'rails-assets-angular-translate', '~> 2.11.0'
 gem 'rails-assets-sugar', '~> 1.4.1'
 gem 'rails-assets-angular-bootstrap', '~> 1.3.3'
 gem 'rails-assets-bootstrap', '3.3.6'
+gem 'rails-assets-moment', '~> 2.13.0'
 
 gem 'ngannotate-rails', '~> 1.2.2'
 

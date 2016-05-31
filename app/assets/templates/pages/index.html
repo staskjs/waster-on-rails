@@ -1,7 +1,7 @@
 <h1 class="heading">Waster</h1>
-<div class="row">
+<div class="row" ng-repeat="workTime in workTimes.days">
   <div class="col-lg-3">
-    Понедельник
+    {{ 'date.day_names.'+(workTime.date | weekDay) | translate  }}
   </div>
   <div class="col-lg-7">
     10 ч. 14 мин.

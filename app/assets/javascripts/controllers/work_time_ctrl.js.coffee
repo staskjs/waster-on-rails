@@ -1,2 +1,3 @@
 @app.controller 'WorkTimeCtrl', ($scope, WorkTime) ->
-  WorkTime.get()
+  WorkTime.get().then (workTimes) ->
+    $scope.workTimes = workTimes
