@@ -7,3 +7,7 @@ ru:
   now: сейчас
   check_in: Я пришел
   check_out: Я ухожу
+
+  menu:
+    home: Главная
+    about: О проекте

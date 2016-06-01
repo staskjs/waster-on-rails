@@ -2,14 +2,19 @@
 <html>
 <head>
   <title>Waster</title>
+  <base href="/">
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= js_env %>
   <%= csrf_meta_tags %>
 </head>
-<body ng-app="<%= Rails.application.class.parent_name %>">
+<body ng-app="<%= Rails.application.class.parent_name %>" ng-cloak>
 
-  <div class="container">
+  <div class="container" ng-controller="CommonCtrl">
+    <ul class="nav nav-tabs">
+      <li role="presentation" active-menu=""><a href="/">{{ 'menu.home' | translate }}</a></li>
+      <li role="presentation" active-menu="about"><a href="/about">{{ 'menu.about' | translate }}</a></li>
+    </ul>
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2" ng-view></div>
     </div>

@@ -24,3 +24,4 @@
 //= require ./filters
 //= require_directory ./controllers
 //= require_directory ./services
+//= require_directory ./directives
