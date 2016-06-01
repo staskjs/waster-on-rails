@@ -6,3 +6,11 @@ body {
   text-transform: uppercase;
   font-weight: bold;
 }
+
+.overtime {
+  color: green;
+}
+
+.undertime {
+  color: red;
+}

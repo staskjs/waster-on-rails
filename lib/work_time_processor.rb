@@ -124,7 +124,7 @@ class WorkTimeProcessor
   def with_missing_days
     @dates = days.map(&:date)
     (@start_date..@end_date).map do |date|
-      next days.select { |day| day.date == date } if @dates.include?(date)
+      next days.select { |day| day.date == date }.first if @dates.include?(date)
 
       WorkDay.new(intervals: [],
                   date: date,

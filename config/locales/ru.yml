@@ -2,3 +2,6 @@ ru:
   date:
     day_names: [Воскресенье, Понедельник, Вторник, Среда, Четверг, Пятница, Суббота]
 
+  missing_day: Пропуск
+  minutes_to_human: "{{ hours }} ч. {{ minutes }} мин."
+  now: сейчас

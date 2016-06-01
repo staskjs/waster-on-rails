@@ -20,4 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  missing_day: Missing
+  now: now
+
+  minutes_to_human: "{{ hours }}h {{ minutes }}m"

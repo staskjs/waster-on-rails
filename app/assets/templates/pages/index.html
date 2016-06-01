@@ -1,10 +1,20 @@
 <h1 class="heading">Waster</h1>
-<div class="row" ng-repeat="workTime in workTimes.days">
+<div class="row" ng-repeat="day in workTimes.days">
   <div class="col-lg-3">
-    {{ 'date.day_names.'+(workTime.date | weekDay) | translate  }}
+    {{ 'date.day_names.'+(day.date | weekDay) | translate  }}
   </div>
   <div class="col-lg-7">
-    10 ч. 14 мин.
+    <div ng-show="day.is_missing">
+      {{ 'missing_day' | translate }}
+    </div>
+    <div ng-show="!day.is_missing">
+      <span>{{ day.total_worked | minutesToHuman }}</span>, 
+      <span ng-class="{overtime: day.is_overtime, undertime: !day.is_overtime && day.overtime_minutes > 0}">{{ day.overtime_minutes | minutesToHuman }}</span>
+      (<span ng-repeat="interval in day.intervals">
+        {{ interval.time_in | time }} - {{ interval.time_out ? (interval.time_out | time) : ('now' | translate) }}
+        <span ng-if="!$last">, </span>
+      </span>)
+    </div>
   </div>
   <div class="col-lg-2">
     Редактировать
