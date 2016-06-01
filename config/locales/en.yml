@@ -22,5 +22,6 @@
 en:
   missing_day: Missing
   now: now
-
   minutes_to_human: "{{ hours }}h {{ minutes }}m"
+  check_in: Check in
+  check_out: Check out

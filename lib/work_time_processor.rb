@@ -138,6 +138,11 @@ class WorkTimeProcessor
     end
   end
 
+  #
+  def checked_out?
+    !days.any? { |day| !day.is_finished }
+  end
+
   private
 
   # Group raw work_times models by date

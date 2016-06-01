@@ -41,6 +41,14 @@ describe 'WorkTimeProcessor' do
     expect(@processor.total_overtime).to eq total_overtime
   end
 
+  it 'checked out?' do
+    expect(@processor.checked_out?).to eq false
+    # @processor.check_out
+    # expect(@processor.checked_out?).to eq true
+  end
+
+  # TODO: test when checked out next day
+
   describe 'work minutes' do
     it 'week' do
       minutes = @processor.total_work_minutes

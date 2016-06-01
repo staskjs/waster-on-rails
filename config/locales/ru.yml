@@ -5,3 +5,5 @@ ru:
   missing_day: Пропуск
   minutes_to_human: "{{ hours }} ч. {{ minutes }} мин."
   now: сейчас
+  check_in: Я пришел
+  check_out: Я ухожу

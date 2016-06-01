@@ -20,3 +20,10 @@
     Редактировать
   </div>
 </div>
+
+<div class="row">
+  <div class="form-group">
+    <button ng-show="workTimes.checked_out" class="btn btn-primary">{{ 'check_in' | translate }}</button>
+    <button ng-show="!workTimes.checked_out" class="btn btn-primary">{{ 'check_out' | translate }}</button>
+  </div>
+</div>
