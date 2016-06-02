@@ -8,6 +8,10 @@ ru:
   check_in: Я пришел
   check_out: Я ухожу
 
+  total_overtime: Общая переработка
+  total_undertime: Общая недоработка
+  left_to_work: Осталось работать
+
   menu:
     home: Главная
     about: О проекте

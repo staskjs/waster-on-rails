@@ -26,6 +26,10 @@ en:
   check_in: Check in
   check_out: Check out
 
+  total_overtime: Total overtime
+  total_undertime: Total undertime
+  left_to_work: Left to work
+
   menu:
     home: Home
     about: About

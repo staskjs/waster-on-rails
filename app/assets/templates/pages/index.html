@@ -21,9 +21,21 @@
   </div>
 </div>
 
-<div class="row">
-  <div class="form-group">
-    <button ng-show="workTimes.checked_out" class="btn btn-primary">{{ 'check_in' | translate }}</button>
-    <button ng-show="!workTimes.checked_out" class="btn btn-primary">{{ 'check_out' | translate }}</button>
+<div class="row" ng-if="workTimes">
+  <div class="col-lg-12">
+    <span ng-show="workTimes.total_overtime >= 0">{{ 'total_overtime' | translate }}: {{ workTimes.total_overtime | minutesToHuman }}</span>
+    <span ng-show="workTimes.total_overtime < 0">{{ 'total_undertime' | translate }}: {{ workTimes.total_overtime | minutesToHuman }}</span>
+  </div>
+  <div class="col-lg-12">
+    {{ 'left_to_work' | translate }}: {{ workTimes.left_minutes | minutesToHuman }}
+  </div>
+</div>
+
+<div class="row" ng-if="workTimes">
+  <div class="col-lg-12">
+    <div class="form-group">
+      <button ng-show="workTimes.checked_out" class="btn btn-primary">{{ 'check_in' | translate }}</button>
+      <button ng-show="!workTimes.checked_out" class="btn btn-primary">{{ 'check_out' | translate }}</button>
+    </div>
   </div>
 </div>
