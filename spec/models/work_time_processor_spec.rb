@@ -47,7 +47,19 @@ describe 'WorkTimeProcessor' do
     # expect(@processor.checked_out?).to eq true
   end
 
+  it 'unfinished day' do
+    expect(@processor.unfinished_day).to eq @processor.days[3]
+  end
+
   # TODO: test when checked out next day
+
+  it 'check' do
+    @processor.check
+    @processor = WorkTimeProcessor.new('stub')
+    expect(@processor.checked_out?).to eq true
+    # expect(@processor.days[3])
+    ap @processor.days[3]
+  end
 
   describe 'work minutes' do
     it 'week' do

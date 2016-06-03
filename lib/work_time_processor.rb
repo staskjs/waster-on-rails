@@ -138,9 +138,27 @@ class WorkTimeProcessor
     end
   end
 
+  # Whether user does not have unfinished day
   #
   def checked_out?
-    !days.any? { |day| !day.is_finished }
+    unfinished_day.nil?
+  end
+
+  # Get day when user has not checked out
+  #
+  def unfinished_day
+    days.find { |day| !day.is_finished }
+  end
+
+  # If user has unfinished day then check out
+  # Else check in
+  #
+  def check
+    if checked_out?
+      WorkTime.create(user_id: @username, time_in: Time.now)
+    else
+      unfinished_day.check_out
+    end
   end
 
   private
