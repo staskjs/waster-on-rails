@@ -4,3 +4,6 @@
   get: ->
     @$http.get('/api/work_time').then (response) ->
       response.data
+
+  check: ->
+    @$http.get('/api/work_time/check')

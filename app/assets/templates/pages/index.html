@@ -34,8 +34,8 @@
 <div class="row" ng-if="workTimes">
   <div class="col-lg-12">
     <div class="form-group">
-      <button ng-show="workTimes.checked_out" class="btn btn-primary">{{ 'check_in' | translate }}</button>
-      <button ng-show="!workTimes.checked_out" class="btn btn-primary">{{ 'check_out' | translate }}</button>
+      <button ng-show="workTimes.checked_out" class="btn btn-primary" ng-click="check()">{{ 'check_in' | translate }}</button>
+      <button ng-show="!workTimes.checked_out" class="btn btn-primary" ng-click="check()">{{ 'check_out' | translate }}</button>
     </div>
   </div>
 </div>

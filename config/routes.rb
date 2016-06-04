@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     scope :work_time, controller: :work_time do
       get '', action: :index
+      get 'check', action: :check
     end
   end
 
