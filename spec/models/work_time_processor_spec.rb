@@ -11,7 +11,7 @@ describe 'WorkTimeProcessor' do
     create(:work_time, time_in: '2016-05-05 14:00')
 
     # 22 hours worked + 3.5 hours until now
-    # overtimes: -1.5, 0.5, -4.5, -3
+    # overtimes: -1.5, 0.5, -4.5
 
     @time_now = Time.new(2016, 5, 5, 17, 30, 0, 0)
     allow(Time).to receive(:now).and_return(@time_now)
@@ -37,8 +37,14 @@ describe 'WorkTimeProcessor' do
   end
 
   it 'total_overtime' do
-    total_overtime = (-1.5 + 0.5 - 4.5 - 3) * 60
+    total_overtime = (-1.5 + 0.5 - 4.5) * 60
     expect(@processor.total_overtime).to eq total_overtime
+  end
+
+  # Empty week has 0 overtime, because all days are not finished
+  it 'total_overtime in empty week' do
+    @processor = WorkTimeProcessor.new('stub2')
+    expect(@processor.total_overtime).to eq 0
   end
 
   it 'checked out?' do
@@ -58,7 +64,6 @@ describe 'WorkTimeProcessor' do
     @processor = WorkTimeProcessor.new('stub')
     expect(@processor.checked_out?).to eq true
     # expect(@processor.days[3])
-    ap @processor.days[3]
   end
 
   describe 'work minutes' do

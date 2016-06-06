@@ -72,7 +72,8 @@ class WorkTimeProcessor
     end
 
     @left_minutes -= @days.sum(&:total_worked)
-    @total_overtime = @days.sum { |day| day.is_overtime ? day.overtime_minutes : -day.overtime_minutes }
+
+    @total_overtime = @days.sum(&:overtime)
 
     # TODO: when to finish work (distributed overtime between rest of days)
     # TODO: when to finish work (start of work + daily hours)
