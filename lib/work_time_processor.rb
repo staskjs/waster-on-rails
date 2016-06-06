@@ -18,17 +18,16 @@ class WorkTimeProcessor
     # for selected time frame (week or month)
     @date = Date.current if @date.nil?
 
-    @start_date, @end_date =
+    @date_range =
       case @time_frame
-      when 'week' then [@date.beginning_of_week, @date.end_of_week]
-      when 'month' then [@date.beginning_of_month, @date.end_of_month]
+      when 'week' then (@date.beginning_of_week..@date.end_of_week)
+      when 'month' then (@date.beginning_of_month..@date.end_of_month)
       end
 
     work_times =
       WorkTime
       .where(user_id: username)
-      .where('DATE(time_in) >= ?', @start_date)
-      .where('DATE(time_in) <= ?', @end_date)
+      .where(time_in: @date_range)
       .order(:time_in)
 
     # How many minutes is left to work
@@ -111,7 +110,7 @@ class WorkTimeProcessor
   # @return number of work minutes in this interval
   #
   def total_work_minutes
-    (@start_date..@end_date).inject(0) do |minutes, date|
+    @date_range.inject(0) do |minutes, date|
       # Do not count days off
       minutes += get_minutes_in_day(date) unless day_off?(date)
       minutes
@@ -124,8 +123,8 @@ class WorkTimeProcessor
   #
   def with_missing_days
     @dates = days.map(&:date)
-    (@start_date..@end_date).map do |date|
-      next days.select { |day| day.date == date }.first if @dates.include?(date)
+    @date_range.map do |date|
+      next days.find { |day| day.date == date } if @dates.include?(date)
 
       WorkDay.new(intervals: [],
                   date: date,
@@ -156,7 +155,7 @@ class WorkTimeProcessor
   #
   def check
     if checked_out?
-      WorkTime.create(user_id: @username, time_in: Time.now)
+      WorkTime.create(user_id: @username, time_in: Time.current)
     else
       unfinished_day.check_out
     end
