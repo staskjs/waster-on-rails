@@ -2,7 +2,6 @@ class WorkTimeProcessor
   attr_reader :username
   attr_reader :days_off
   attr_reader :daily_hours
-  attr_reader :days
   attr_reader :left_minutes
   attr_reader :total_overtime
 
@@ -24,22 +23,36 @@ class WorkTimeProcessor
       when 'month' then (@date.beginning_of_month..@date.end_of_month)
       end
 
+    # How many minutes is left to work
+    @left_minutes = total_work_minutes
+
+    @left_minutes -= days.sum(&:total_worked)
+
+    @total_overtime = days.sum(&:overtime)
+
+    # TODO: when to finish work (distributed overtime between rest of days)
+    # TODO: when to finish work (start of work + daily hours)
+  end
+
+  # Contains array of WorkDay elements which represent
+  # each new day use checked in
+  #
+  # @return array<WorkDay>
+  #
+  def days
     work_times =
       WorkTime
       .where(user_id: username)
       .where(time_in: @date_range)
       .order(:time_in)
 
-    # How many minutes is left to work
-    @left_minutes = total_work_minutes
-
-    @days = get_work_intervals(work_times).map do |intervals|
+    get_work_intervals(work_times).map do |intervals|
       date = intervals.first.time_in.to_date
 
       work_day_minutes = get_minutes_in_day(date)
 
       left_today =
-        if left_minutes >= work_day_minutes
+        if @left_minutes >= work_day_minutes
           work_day_minutes
         else
           left_minutes
@@ -70,12 +83,6 @@ class WorkTimeProcessor
 
     end
 
-    @left_minutes -= @days.sum(&:total_worked)
-
-    @total_overtime = @days.sum(&:overtime)
-
-    # TODO: when to finish work (distributed overtime between rest of days)
-    # TODO: when to finish work (start of work + daily hours)
   end
 
   # Get how many minutes should be worked in a particular date
