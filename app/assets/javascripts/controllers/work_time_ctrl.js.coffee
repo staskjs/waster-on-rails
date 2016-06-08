@@ -6,4 +6,7 @@
   $scope.check = ->
     WorkTime.check().then(load)
 
+  $scope.updateInterval = (interval) ->
+    WorkTime.updateInterval(interval).then(load)
+
   load()
