@@ -2,6 +2,22 @@ body {
   padding: 50px;
 }
 
+.day {
+  margin-top: 10px;
+}
+
+.day-edit {
+  margin-top: 10px;
+}
+
+.day .missing {
+  color: red;
+}
+
+.summary-info {
+  margin-top: 15px;
+}
+
 .heading {
   text-transform: uppercase;
   font-weight: bold;

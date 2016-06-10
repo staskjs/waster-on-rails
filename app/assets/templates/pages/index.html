@@ -1,12 +1,12 @@
 <h1 class="heading">Waster</h1>
 <div ng-repeat="day in workTimes.days">
-  <div class="row">
+  <div class="row day">
     <div class="col-lg-3">
       {{ 'date.day_names.'+(day.date | weekDay) | translate  }}
     </div>
     <div class="col-lg-7">
       <div ng-show="day.is_missing">
-        {{ 'missing_day' | translate }}
+        <span class="missing">{{ 'missing_day' | translate }}</span>
       </div>
       <div ng-show="!day.is_missing">
         <span>{{ day.total_worked | minutesToHuman }}</span>, 
@@ -17,11 +17,11 @@
         </span>)
       </div>
     </div>
-    <div class="col-lg-2">
-      <span ng-click="day.showEdit = !day.showEdit">Редактировать</span>
+    <div class="col-lg-2" ng-if="!day.is_missing">
+      <a href="#" ng-click="day.showEdit = !day.showEdit">Редактировать</a>
     </div>
   </div>
-  <div class="row" ng-repeat="interval in day.editableIntervals">
+  <div ng-if="!day.is_missing && day.showEdit" class="row day-edit" ng-repeat="interval in day.editableIntervals">
     <div class="col-lg-2">
         <input class="form-control" ng-model="interval.time_in" />
     </div>
@@ -34,7 +34,7 @@
   </div>
 </div>
 
-<div class="row" ng-if="workTimes">
+<div class="row summary-info" ng-if="workTimes">
   <div class="col-lg-12">
     <span ng-show="workTimes.total_overtime >= 0">{{ 'total_overtime' | translate }}: {{ workTimes.total_overtime | minutesToHuman }}</span>
     <span ng-show="workTimes.total_overtime < 0">{{ 'total_undertime' | translate }}: {{ workTimes.total_overtime | minutesToHuman }}</span>
