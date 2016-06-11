@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     scope :work_time, controller: :work_time do
       get '', action: :index
       get 'check', action: :check
+      put 'update', action: :update
     end
   end
 

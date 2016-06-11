@@ -48,6 +48,7 @@ gem 'rails-assets-bootstrap', '3.3.6'
 gem 'rails-assets-moment', '~> 2.13.0'
 
 gem 'ngannotate-rails', '~> 1.2.2'
+gem 'angular_rails_csrf', '~> 1.0.4'
 
 group :test do
   gem 'faker', '~> 1.4.3'

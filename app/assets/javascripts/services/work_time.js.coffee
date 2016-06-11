@@ -22,4 +22,11 @@
     @$http.get('/api/work_time/check')
 
   updateInterval: (interval) ->
-    @$http.post('/api/work_time/update')
+    id = interval.id
+
+    # Get times in utc
+    time_in = moment(interval.time_in, 'HH:mm').utc().format('HH:mm')
+    time_out = moment(interval.time_out, 'HH:mm').utc().format('HH:mm')
+
+    workTime = {id, time_in, time_out}
+    @$http.put('/api/work_time/update', work_time: workTime)
