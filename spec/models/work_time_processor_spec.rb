@@ -66,6 +66,31 @@ describe 'WorkTimeProcessor' do
     # expect(@processor.days[3])
   end
 
+  describe 'overtimes' do
+    it '1' do
+      expect(@processor.days[0].overtime_minutes).to eq 90
+      expect(@processor.days[1].overtime_minutes).to eq 30
+      expect(@processor.days[2].overtime_minutes).to eq 270
+      expect(@processor.days[3].overtime_minutes).to eq 180
+    end
+
+    it '2' do
+      WorkTime.delete_all
+      create(:work_time, time_in: '2016-05-02 07:41', time_out: '2016-05-02 16:25')
+      create(:work_time, time_in: '2016-05-03 12:13', time_out: '2016-05-03 18:38')
+      create(:work_time, time_in: '2016-05-07 07:35', time_out: '2016-05-07 17:37')
+      @processor = WorkTimeProcessor.new('stub')
+      days = @processor.with_missing_days
+      expect(days[0].overtime_minutes).to eq 14
+      expect(days[1].overtime_minutes).to eq 125
+      expect(days[2].overtime_minutes).to eq 0
+      expect(days[3].overtime_minutes).to eq 0
+      expect(days[4].overtime_minutes).to eq 0
+      expect(days[5].overtime_minutes).to eq 92
+
+    end
+  end
+
   describe 'work minutes' do
     it 'week' do
       minutes = @processor.total_work_minutes

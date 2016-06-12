@@ -10,9 +10,9 @@ class WorkTime < ActiveRecord::Base
 
   def minutes_worked
     if finished?
-      TimeDifference.between(time_in, time_out).in_minutes
+      TimeDifference.between(time_in, time_out).in_minutes.floor
     else
-      TimeDifference.between(time_in, Time.current).in_minutes
+      TimeDifference.between(time_in, Time.current).in_minutes.floor
     end
   end
 

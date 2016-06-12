@@ -23,30 +23,16 @@ class WorkTimeProcessor
       when 'month' then (@date.beginning_of_month..@date.end_of_month)
       end
 
-    # How many minutes is left to work
-    @left_minutes = total_work_minutes
-
-    @left_minutes -= days.sum(&:total_worked)
-
-    @total_overtime = days.sum(&:overtime)
-
-    # TODO: when to finish work (distributed overtime between rest of days)
-    # TODO: when to finish work (start of work + daily hours)
-  end
-
-  # Contains array of WorkDay elements which represent
-  # each new day use checked in
-  #
-  # @return array<WorkDay>
-  #
-  def days
     work_times =
       WorkTime
       .where(user_id: username)
       .where(time_in: @date_range)
       .order(:time_in)
 
-    get_work_intervals(work_times).map do |intervals|
+    # How many minutes is left to work
+    @left_minutes = total_work_minutes
+
+    @days = get_work_intervals(work_times).map do |intervals|
       date = intervals.first.time_in.to_date
 
       work_day_minutes = get_minutes_in_day(date)
@@ -55,12 +41,13 @@ class WorkTimeProcessor
         if @left_minutes >= work_day_minutes
           work_day_minutes
         else
-          left_minutes
+          @left_minutes
         end
 
       # Amount of minutes worked during this day
       total_worked = intervals.sum(&:minutes_worked)
 
+      @left_minutes -= total_worked
       # Indicates whether user worked more or less (overtime or undertime) in that day,
       # than he should
       # true - overtime, false - undertime
@@ -83,6 +70,19 @@ class WorkTimeProcessor
 
     end
 
+    @total_overtime = days.sum(&:overtime)
+
+    # TODO: when to finish work (distributed overtime between rest of days)
+    # TODO: when to finish work (start of work + daily hours)
+  end
+
+  # Contains array of WorkDay elements which represent
+  # each new day use checked in
+  #
+  # @return array<WorkDay>
+  #
+  def days
+    @days
   end
 
   # Get how many minutes should be worked in a particular date
@@ -135,7 +135,7 @@ class WorkTimeProcessor
 
       WorkDay.new(intervals: [],
                   date: date,
-                  total_worked: 0,
+                  total_worked: @daily_hours,
                   is_overtime: false,
                   overtime_minutes: 0,
                   is_finished: true,
