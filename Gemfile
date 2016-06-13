@@ -38,6 +38,8 @@ gem 'hashie', '~> 3.4.4'
 
 gem 'russian', '~> 0.6.0'
 
+gem 'devise', '~> 3.5.6'
+
 # assets
 gem 'rails-assets-angular', '~> 1.5.5'
 gem 'rails-assets-angular-route', '~> 1.5.5'
