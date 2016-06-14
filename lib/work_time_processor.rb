@@ -81,9 +81,7 @@ class WorkTimeProcessor
   #
   # @return array<WorkDay>
   #
-  def days
-    @days
-  end
+  attr_reader :days
 
   # Get how many minutes should be worked in a particular date
   #
