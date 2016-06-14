@@ -2,16 +2,25 @@ ru:
   date:
     day_names: [Воскресенье, Понедельник, Вторник, Среда, Четверг, Пятница, Суббота]
 
-  missing_day: Пропуск
   minutes_to_human: "{{ hours }} ч. {{ minutes }} мин."
-  now: сейчас
-  check_in: Я пришел
-  check_out: Я ухожу
 
-  total_overtime: Общая переработка
-  total_undertime: Общая недоработка
-  left_to_work: Осталось работать
+  pages:
+    users:
+      sign_in:
+        title: Вход
+
+    work_times:
+      index:
+        missing_day: Пропуск
+        now: сейчас
+        check_in: Я пришел
+        check_out: Я ухожу
+
+        total_overtime: Общая переработка
+        total_undertime: Общая недоработка
+        left_to_work: Осталось работать
 
   menu:
+    sign_in: Вход
     home: Главная
     about: О проекте

@@ -20,16 +20,26 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  missing_day: Missing
-  now: now
   minutes_to_human: "{{ hours }}h {{ minutes }}m"
-  check_in: Check in
-  check_out: Check out
 
-  total_overtime: Total overtime
-  total_undertime: Total undertime
-  left_to_work: Left to work
+  pages:
+    users:
+      sign_in:
+        title: Sign In
+
+    work_times:
+      index:
+        missing_day: Missing
+        now: now
+        check_in: Check in
+        check_out: Check out
+
+        total_overtime: Total overtime
+        total_undertime: Total undertime
+        left_to_work: Left to work
+
 
   menu:
+    sign_in: Sign In
     home: Home
     about: About

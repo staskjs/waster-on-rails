@@ -13,7 +13,8 @@
   <div class="container" ng-controller="CommonCtrl">
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
-        <ul class="nav nav-tabs" ng-if="false">
+        <ul class="nav nav-tabs">
+          <li role="presentation" active-menu="users/sign_in"><a href="/users/sign_in">{{ 'menu.sign_in' | translate }}</a></li>
           <li role="presentation" active-menu=""><a href="/">{{ 'menu.home' | translate }}</a></li>
           <li role="presentation" active-menu="about"><a href="/about">{{ 'menu.about' | translate }}</a></li>
         </ul>

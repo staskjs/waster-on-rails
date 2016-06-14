@@ -20,6 +20,10 @@
       templateUrl: 'pages/about.html'
       controller: 'AboutCtrl'
     )
+    .when('/users/sign_in',
+      templateUrl: 'pages/users/sessions/new.html'
+      controller: 'SignInCtrl'
+    )
 
 .factory 'railsAssetsInterceptor', (Rails) ->
   request: (config) ->

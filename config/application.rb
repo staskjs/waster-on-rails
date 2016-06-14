@@ -34,4 +34,5 @@ module Waster
 
     config.autoload_paths += %W(#{config.root}/lib)
   end
+  OmniAuth.config.full_host = 'http://waster.karpov.co.vu'
 end

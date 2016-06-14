@@ -22,6 +22,6 @@
 //
 //= require ./init
 //= require ./filters
-//= require_directory ./controllers
+//= require_tree ./controllers
 //= require_directory ./services
 //= require_directory ./directives

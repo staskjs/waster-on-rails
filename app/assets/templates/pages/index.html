@@ -6,7 +6,7 @@
     </div>
     <div class="col-lg-7">
       <div ng-show="day.is_missing">
-        <span class="missing">{{ 'missing_day' | translate }}</span>
+        <span class="missing">{{ 'pages.work_times.index.missing_day' | translate }}</span>
       </div>
       <div ng-show="!day.is_missing">
         <span>{{ day.total_worked | minutesToHuman }}</span>, 
@@ -36,19 +36,25 @@
 
 <div class="row summary-info" ng-if="workTimes">
   <div class="col-lg-12">
-    <span ng-show="workTimes.total_overtime >= 0">{{ 'total_overtime' | translate }}: {{ workTimes.total_overtime | minutesToHuman }}</span>
-    <span ng-show="workTimes.total_overtime < 0">{{ 'total_undertime' | translate }}: {{ workTimes.total_overtime | minutesToHuman }}</span>
+    <span ng-show="workTimes.total_overtime >= 0">
+      {{ 'pages.work_times.index.total_overtime' | translate }}:
+      {{ workTimes.total_overtime | minutesToHuman }}
+    </span>
+    <span ng-show="workTimes.total_overtime < 0">
+      {{ 'pages.work_times.index.total_undertime' | translate }}:
+      {{ workTimes.total_overtime | minutesToHuman }}
+    </span>
   </div>
   <div class="col-lg-12">
-    {{ 'left_to_work' | translate }}: {{ workTimes.left_minutes | minutesToHuman }}
+    {{ 'pages.work_times.index.left_to_work' | translate }}: {{ workTimes.left_minutes | minutesToHuman }}
   </div>
 </div>
 
 <div class="row" ng-if="workTimes">
   <div class="col-lg-12">
     <div class="form-group">
-      <button ng-show="workTimes.checked_out" class="btn btn-primary" ng-click="check()">{{ 'check_in' | translate }}</button>
-      <button ng-show="!workTimes.checked_out" class="btn btn-primary" ng-click="check()">{{ 'check_out' | translate }}</button>
+      <button ng-show="workTimes.checked_out" class="btn btn-primary" ng-click="check()">{{ 'pages.work_times.index.check_in' | translate }}</button>
+      <button ng-show="!workTimes.checked_out" class="btn btn-primary" ng-click="check()">{{ 'pages.work_times.index.check_out' | translate }}</button>
     </div>
   </div>
 </div>
