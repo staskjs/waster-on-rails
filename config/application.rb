@@ -33,6 +33,11 @@ module Waster
     config.active_record.raise_in_transactional_callbacks = true
 
     config.autoload_paths += %W(#{config.root}/lib)
+
+    # Allow devise to respond to json and html
+    config.to_prepare do
+      DeviseController.respond_to :html, :json
+    end
   end
   OmniAuth.config.full_host = 'http://waster.karpov.co.vu'
 end

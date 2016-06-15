@@ -1,6 +1,7 @@
 @app = angular.module('Waster', [
   'ngRoute'
   'pascalprecht.translate'
+  'Devise'
 ])
 .config ($routeProvider, $httpProvider, $translateProvider, $locationProvider) ->
 

@@ -2,7 +2,7 @@ class Identity < ActiveRecord::Base
   belongs_to :user
 
   validates :uid, :provider, presence: true
-  validates :uid, uniqueness: true, scope: :provider
+  validates :uid, uniqueness: { scope: :provider }
 
   # Find or create a record for passed auth parameters
   #

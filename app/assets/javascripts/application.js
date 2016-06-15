@@ -19,6 +19,7 @@
 //= require angular-route
 //= require angular-translate
 //= require angular-bootstrap
+//= require angular-devise
 //
 //= require ./init
 //= require ./filters

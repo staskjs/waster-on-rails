@@ -14,9 +14,10 @@
     <div class="row">
       <div class="col-lg-8 col-lg-offset-2">
         <ul class="nav nav-tabs">
-          <li role="presentation" active-menu="users/sign_in"><a href="/users/sign_in">{{ 'menu.sign_in' | translate }}</a></li>
-          <li role="presentation" active-menu=""><a href="/">{{ 'menu.home' | translate }}</a></li>
-          <li role="presentation" active-menu="about"><a href="/about">{{ 'menu.about' | translate }}</a></li>
+          <li ng-if="!Auth.isAuthenticated()" role="presentation" active-menu="users/sign_in"><a href="/users/sign_in">{{ 'menu.sign_in' | translate }}</a></li>
+          <li ng-if="Auth.isAuthenticated()" role="presentation" active-menu=""><a href="/">{{ 'menu.home' | translate }}</a></li>
+          <li ng-if="Auth.isAuthenticated()" role="presentation" active-menu="about"><a href="/about">{{ 'menu.about' | translate }}</a></li>
+          <li ng-if="Auth.isAuthenticated()" role="presentation" ng-click="Auth.logout()"><a href="#">{{ 'menu.sign_out' | translate }}</a></li>
         </ul>
 
         <div class="row">
