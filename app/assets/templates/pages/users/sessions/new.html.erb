@@ -1,26 +1,6 @@
 <% self.class.include Rails.application.routes.url_helpers %>
 <h2>{{ 'pages.users.sign_in.title' | translate }}</h2>
 
-<form action="<%= user_session_path %>" method="POST">
-  <div class="field">
-    <label>{{ 'pages.users.sign_in.email' | translate }}</label><br />
-    <input type="email" autofocus />
-  </div>
-
-  <div class="field">
-    <label>{{ 'pages.users.sign_in.password' | translate }}</label><br />
-    <input type="password" autocomplete="off" />
-  </div>
-
-  <div class="field">
-    <input type="checkbox" name="remember_me" />
-    <label>{{ 'pages.users.sign_in.password' | translate }}</label><br />
-  </div>
-
-  <div class="actions">
-    <button>{{ 'pages.users.sign_in.log_in' | translate }}</button>
-  </div>
-</form>
 <% User.omniauth_providers.each do |provider| %>
   <a target="_blank" href="<%= user_omniauth_authorize_path(provider) %>">Sign in with <%= OmniAuth::Utils.camelize(provider) %></a>
 <% end %>

@@ -240,7 +240,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
-  config.omniauth :twitter, Figaro.env.twitter_app_id, Figaro.env.twitter_app_secret
+  config.omniauth :google_oauth2, Figaro.env.google_app_id, Figaro.env.google_app_secret
   config.omniauth :vkontakte, Figaro.env.vk_app_id, Figaro.env.vk_app_secret
 
   # ==> Warden configuration

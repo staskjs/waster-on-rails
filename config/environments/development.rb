@@ -42,4 +42,6 @@ Rails.application.configure do
   config.action_mailer.default_url_options = {
     host: 'waster.karpov.co.vu',
   }
+
+  BetterErrors::Middleware.allow_ip! Figaro.env.trusted_ip if Figaro.env.trusted_ip
 end

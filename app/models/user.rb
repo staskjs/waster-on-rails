@@ -5,6 +5,17 @@ class User < ActiveRecord::Base
 
   has_many :identities
 
+  def self.from_omniauth(auth)
+    identity = Identity.find_for_oauth(auth)
+    if identity.user.nil?
+      user = self.create
+      if user.persisted?
+        identity.update_attributes(user_id: user.id)
+      end
+    end
+    identity.user
+  end
+
   # Disable confirmation
   # User is allowed to sign in without confirmation
   # Confirmation is only required to receive newsletter
