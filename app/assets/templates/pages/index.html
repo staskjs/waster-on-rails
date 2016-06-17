@@ -1,5 +1,5 @@
 <h1 class="heading">Waster</h1>
-<div ng-repeat="day in workTimes.days">
+<div ng-repeat="day in data.days">
   <div class="row day">
     <div class="col-lg-3">
       {{ 'date.day_names.'+(day.date | weekDay) | translate  }}
@@ -34,27 +34,27 @@
   </div>
 </div>
 
-<div class="row summary-info" ng-if="workTimes">
+<div class="row summary-info" ng-if="data">
   <div class="col-lg-12">
-    <span ng-show="workTimes.total_overtime >= 0">
+    <span ng-show="data.total_overtime >= 0">
       {{ 'pages.work_times.index.total_overtime' | translate }}:
-      {{ workTimes.total_overtime | minutesToHuman }}
+      {{ data.total_overtime | minutesToHuman }}
     </span>
-    <span ng-show="workTimes.total_overtime < 0">
+    <span ng-show="data.total_overtime < 0">
       {{ 'pages.work_times.index.total_undertime' | translate }}:
-      {{ workTimes.total_overtime | minutesToHuman }}
+      {{ data.total_overtime | minutesToHuman }}
     </span>
   </div>
   <div class="col-lg-12">
-    {{ 'pages.work_times.index.left_to_work' | translate }}: {{ workTimes.left_minutes | minutesToHuman }}
+    {{ 'pages.work_times.index.left_to_work' | translate }}: {{ data.left_minutes | minutesToHuman }}
   </div>
 </div>
 
-<div class="row" ng-if="workTimes">
+<div class="row" ng-if="data">
   <div class="col-lg-12">
     <div class="form-group">
-      <button ng-show="workTimes.checked_out" class="btn btn-primary" ng-click="check()">{{ 'pages.work_times.index.check_in' | translate }}</button>
-      <button ng-show="!workTimes.checked_out" class="btn btn-primary" ng-click="check()">{{ 'pages.work_times.index.check_out' | translate }}</button>
+      <button ng-show="data.checked_out" class="btn btn-primary" ng-click="check()">{{ 'pages.work_times.index.check_in' | translate }}</button>
+      <button ng-show="!data.checked_out" class="btn btn-primary" ng-click="check()">{{ 'pages.work_times.index.check_out' | translate }}</button>
     </div>
   </div>
 </div>

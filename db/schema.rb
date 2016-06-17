@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613121130) do
+ActiveRecord::Schema.define(version: 20160617095016) do
 
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(version: 20160613121130) do
   end
 
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+
+  create_table "intervals", force: :cascade do |t|
+    t.datetime "time_in"
+    t.datetime "time_out"
+    t.string   "user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email"
@@ -45,11 +51,5 @@ ActiveRecord::Schema.define(version: 20160613121130) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-
-  create_table "work_times", force: :cascade do |t|
-    t.datetime "time_in"
-    t.datetime "time_out"
-    t.string   "user_id"
-  end
 
 end

@@ -12,13 +12,13 @@ module Api
     end
 
     def update
-      # TODO: check if work_time actually belongs to current user
-      work_time = WorkTime.find(params[:work_time][:id])
+      # TODO: check if interval actually belongs to current user
+      interval = Interval.find(params[:interval][:id])
 
-      attributes = params.require(:work_time).permit(:time_in, :time_out)
+      attributes = params.require(:interval).permit(:time_in, :time_out)
       if attributes[:time_in].present?
         begin
-          attributes[:time_in] = update_time(work_time.time_in, attributes[:time_in])
+          attributes[:time_in] = update_time(interval.time_in, attributes[:time_in])
         rescue
           render json: { error: 'errors.time_in.wrong' }, status: 406
           return
@@ -27,7 +27,7 @@ module Api
 
       if attributes[:time_out].present?
         begin
-          attributes[:time_out] = update_time(work_time.time_out, attributes[:time_out])
+          attributes[:time_out] = update_time(interval.time_out, attributes[:time_out])
         rescue
           render json: { error: 'errors.time_out.wrong' }, status: 406
           return
@@ -38,7 +38,7 @@ module Api
 
       # Prevent deleting time_out from non-latest interval
       is_interval_latest = @processor.days.any? do |day|
-        day.interval_latest?(work_time)
+        day.interval_latest?(interval)
       end
 
       if !is_interval_latest && !attributes[:time_out].present?
@@ -46,12 +46,12 @@ module Api
       end
 
       if attributes[:time_in].present?
-        work_time.update_attributes(attributes)
+        interval.update_attributes(attributes)
       else
-        work_time.delete
+        interval.delete
       end
 
-      render json: work_time
+      render json: interval
     end
 
     private

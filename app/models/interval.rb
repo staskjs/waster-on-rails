@@ -1,4 +1,4 @@
-class WorkTime < ActiveRecord::Base
+class Interval < ActiveRecord::Base
   attr_reader :minutes_worked
 
   def get

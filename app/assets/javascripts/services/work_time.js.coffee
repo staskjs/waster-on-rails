@@ -31,5 +31,5 @@
     if time_out = interval.time_out
       time_out = moment(interval.time_out, 'HH:mm').utc().format('HH:mm')
 
-    workTime = {id, time_in, time_out}
-    @$http.put('/api/work_time/update', work_time: workTime)
+    interval = {id, time_in, time_out}
+    @$http.put('/api/work_time/update', interval: interval)

@@ -1,7 +1,7 @@
 @app.controller 'WorkTimeCtrl', ($scope, WorkTime) ->
   load = ->
-    WorkTime.get().then (workTimes) ->
-      $scope.workTimes = workTimes
+    WorkTime.get().then (data) ->
+      $scope.data = data
 
   $scope.check = ->
     WorkTime.check().then(load)

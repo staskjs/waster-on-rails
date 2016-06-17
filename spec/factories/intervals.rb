@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :work_time do
+  factory :interval do
     user_id 'stub'
   end
 end

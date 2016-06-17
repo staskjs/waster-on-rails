@@ -23,8 +23,8 @@ class WorkTimeProcessor
       when 'month' then (@date.beginning_of_month..@date.end_of_month)
       end
 
-    work_times =
-      WorkTime
+    intervals =
+      Interval
       .where(user_id: username)
       .where(time_in: @date_range)
       .order(:time_in)
@@ -32,9 +32,9 @@ class WorkTimeProcessor
     # How many minutes is left to work
     @left_minutes = total_work_minutes
 
-    @days = get_work_intervals(work_times).map do |intervals|
-      intervals.sort! { |a, b| a.id <=> b.id }
-      date = intervals.first.time_in.to_date
+    @days = get_work_intervals(intervals).map do |interval_group|
+      interval_group.sort! { |a, b| a.id <=> b.id }
+      date = interval_group.first.time_in.to_date
 
       work_day_minutes = get_minutes_in_day(date)
 
@@ -46,7 +46,7 @@ class WorkTimeProcessor
         end
 
       # Amount of minutes worked during this day
-      total_worked = intervals.sum(&:minutes_worked)
+      total_worked = interval_group.sum(&:minutes_worked)
 
       @left_minutes -= total_worked
       # Indicates whether user worked more or less (overtime or undertime) in that day,
@@ -58,9 +58,9 @@ class WorkTimeProcessor
       # Basically shows how many minutes he has over or underworked
       overtime_minutes = (left_today - total_worked).abs
 
-      is_finished = intervals.all?(&:finished?)
+      is_finished = interval_group.all?(&:finished?)
 
-      WorkDay.new(intervals: intervals,
+      WorkDay.new(intervals: interval_group,
                   date: date,
                   total_worked: total_worked,
                   is_overtime: is_overtime,
@@ -161,7 +161,7 @@ class WorkTimeProcessor
   #
   def check
     if checked_out?
-      WorkTime.create(user_id: @username, time_in: Time.current)
+      Interval.create(user_id: @username, time_in: Time.current)
     else
       unfinished_day.check_out
     end
@@ -169,16 +169,16 @@ class WorkTimeProcessor
 
   private
 
-  # Group raw work_times models by date
+  # Group raw intervals models by date
   #
-  # @param work_times raw WorkTime models
+  # @param intervals raw Interval models
   #
-  # @return array of arrays of WorkTimes
+  # @return array of arrays of Intervals
   #
-  def get_work_intervals(work_times)
-    work_times
-      .group_by do |work_time|
-        work_time.time_in.to_date
+  def get_work_intervals(intervals)
+    intervals
+      .group_by do |interval|
+        interval.time_in.to_date
       end
       .values
   end
