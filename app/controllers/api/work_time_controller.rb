@@ -16,27 +16,57 @@ module Api
       work_time = WorkTime.find(params[:work_time][:id])
 
       attributes = params.require(:work_time).permit(:time_in, :time_out)
-      begin
-        time_in = Time.zone.parse(attributes[:time_in])
-      rescue
-        render json: { error: 'errors.time_in.wrong' }, status: 406
-        return
+      if attributes[:time_in].present?
+        begin
+          attributes[:time_in] = update_time(work_time.time_in, attributes[:time_in])
+        rescue
+          render json: { error: 'errors.time_in.wrong' }, status: 406
+          return
+        end
       end
-      time_in = work_time.time_in.change(hour: time_in.hour, min: time_in.min)
-      attributes[:time_in] = time_in
 
-      begin
-        time_out = Time.zone.parse(attributes[:time_out])
-      rescue
-        render json: { error: 'errors.time_out.wrong' }, status: 406
-        return
+      if attributes[:time_out].present?
+        begin
+          attributes[:time_out] = update_time(work_time.time_out, attributes[:time_out])
+        rescue
+          render json: { error: 'errors.time_out.wrong' }, status: 406
+          return
+        end
       end
-      time_out = work_time.time_out.change(hour: time_out.hour, min: time_out.min)
-      attributes[:time_out] = time_out
 
-      work_time.update_attributes(attributes)
+      @processor = WorkTimeProcessor.new('karpov')
+
+      # Prevent deleting time_out from non-latest interval
+      is_interval_latest = @processor.days.any? do |day|
+        day.is_interval_latest?(work_time)
+      end
+
+      if !is_interval_latest && !attributes[:time_out].present?
+        attributes.except!(:time_out)
+      end
+
+      if attributes[:time_in].present?
+        work_time.update_attributes(attributes)
+      else
+        work_time.delete
+      end
+
 
       render json: work_time
+    end
+
+    private
+
+    # Update given DateTime object's time by given value
+    #
+    # @params time DateTime object
+    # @param value string, representing time on HH:mm format (or any that Time.parse understands)
+    #
+    # @return new updated Time object
+    #
+    def update_time(time, value)
+      value = Time.zone.parse(value)
+      time.change(hour: value.hour, min: value.min)
     end
 
   end

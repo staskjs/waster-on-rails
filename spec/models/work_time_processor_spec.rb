@@ -27,6 +27,7 @@ describe 'WorkTimeProcessor' do
 
   it 'missing days' do
     days = @processor.with_missing_days
+    ap days
     expect(days.length).to eq 7
     expect(days.last[:date]).to eq Date.new(2016, 5, 8)
   end

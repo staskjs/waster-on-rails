@@ -9,10 +9,10 @@
         <span class="missing">{{ 'pages.work_times.index.missing_day' | translate }}</span>
       </div>
       <div ng-show="!day.is_missing">
-        <span>{{ day.total_worked | minutesToHuman }}</span>, 
+        <span>{{ day.total_worked | minutesToHuman }}</span>,
         <span ng-class="{overtime: day.is_overtime, undertime: !day.is_overtime && day.overtime_minutes > 0}">{{ day.overtime_minutes | minutesToHuman }}</span>
         (<span ng-repeat="interval in day.intervals">
-          {{ interval.time_in | time }} - {{ interval.time_out ? (interval.time_out | time) : ('now' | translate) }}
+          {{ interval.id }} - {{ interval.time_in | time }} - {{ interval.time_out ? (interval.time_out | time) : ('pages.work_times.index.now' | translate) }}
           <span ng-if="!$last">, </span>
         </span>)
       </div>
@@ -22,10 +22,10 @@
     </div>
   </div>
   <div ng-if="!day.is_missing && day.showEdit" class="row day-edit" ng-repeat="interval in day.editableIntervals">
-    <div class="col-lg-2">
+    <div class="col-lg-2" ng-show="interval.time_in != null">
         <input class="form-control" ng-model="interval.time_in" />
     </div>
-    <div class="col-lg-2" ng-show="interval.time_out">
+    <div class="col-lg-2" ng-show="interval.time_out != null">
         <input class="form-control" ng-model="interval.time_out" />
     </div>
     <div class="col-lg-2">

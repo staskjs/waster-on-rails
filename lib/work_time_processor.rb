@@ -33,6 +33,7 @@ class WorkTimeProcessor
     @left_minutes = total_work_minutes
 
     @days = get_work_intervals(work_times).map do |intervals|
+      intervals.sort! { |a, b| a.id <=> b.id }
       date = intervals.first.time_in.to_date
 
       work_day_minutes = get_minutes_in_day(date)

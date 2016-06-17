@@ -25,8 +25,11 @@
     id = interval.id
 
     # Get times in utc
-    time_in = moment(interval.time_in, 'HH:mm').utc().format('HH:mm')
-    time_out = moment(interval.time_out, 'HH:mm').utc().format('HH:mm')
+    if time_in = interval.time_in
+      time_in = moment(interval.time_in, 'HH:mm').utc().format('HH:mm')
+
+    if time_out = interval.time_out
+      time_out = moment(interval.time_out, 'HH:mm').utc().format('HH:mm')
 
     workTime = {id, time_in, time_out}
     @$http.put('/api/work_time/update', work_time: workTime)

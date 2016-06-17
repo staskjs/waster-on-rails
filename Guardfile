@@ -57,6 +57,7 @@ guard :rspec, cmd: 'bundle exec rspec' do
   watch(rails.spec_helper)     { rspec.spec_dir }
   watch(rails.routes)          { "#{rspec.spec_dir}/routing" }
   watch(rails.app_controller)  { "#{rspec.spec_dir}/controllers" }
+  watch(%r{^app/controllers/api/**})  { "#{rspec.spec_dir}/controllers" }
   watch(%r{^lib/work_time_processor.rb}) { |_m| "#{rspec.spec_dir}/models/work_time_processor_spec.rb" }
   watch(%r{^lib/work_day.rb}) { |_m| "#{rspec.spec_dir}/models/work_time_processor_spec.rb" }
 
