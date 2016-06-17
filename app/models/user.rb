@@ -8,10 +8,8 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth)
     identity = Identity.find_for_oauth(auth)
     if identity.user.nil?
-      user = self.create
-      if user.persisted?
-        identity.update_attributes(user_id: user.id)
-      end
+      user = create
+      identity.update_attributes(user_id: user.id) if user.persisted?
     end
     identity.user
   end

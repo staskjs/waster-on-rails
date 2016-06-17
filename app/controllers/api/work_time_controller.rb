@@ -38,7 +38,7 @@ module Api
 
       # Prevent deleting time_out from non-latest interval
       is_interval_latest = @processor.days.any? do |day|
-        day.is_interval_latest?(work_time)
+        day.interval_latest?(work_time)
       end
 
       if !is_interval_latest && !attributes[:time_out].present?
@@ -50,7 +50,6 @@ module Api
       else
         work_time.delete
       end
-
 
       render json: work_time
     end

@@ -12,7 +12,7 @@ describe Api::WorkTimeController, type: :controller do
     end
 
     it 'simple update both' do
-      post :update, work_time: {id: @work_time1.id, time_in: '10:33', time_out: '12:00'}
+      post :update, work_time: { id: @work_time1.id, time_in: '10:33', time_out: '12:00' }
 
       @work_time1 = @work_time1.reload
       expect(@work_time1.time_in.hour).to eq 10
@@ -20,13 +20,13 @@ describe Api::WorkTimeController, type: :controller do
     end
 
     it 'remove time_in' do
-      post :update, work_time: {id: @work_time1.id, time_in: '', time_out: '12:00'}
+      post :update, work_time: { id: @work_time1.id, time_in: '', time_out: '12:00' }
 
       expect { @work_time1 = @work_time1.reload }.to raise_error ActiveRecord::RecordNotFound
     end
 
     it 'remove time_out from non-latest work_time (from first)' do
-      post :update, work_time: {id: @work_time1.id, time_in: '10:00', time_out: ''}
+      post :update, work_time: { id: @work_time1.id, time_in: '10:00', time_out: '' }
 
       @work_time1 = @work_time1.reload
       expect(@work_time1.time_in.hour).to eq 10
@@ -36,7 +36,7 @@ describe Api::WorkTimeController, type: :controller do
     end
 
     it 'remove time_out from latest work_time' do
-      post :update, work_time: {id: @work_time2.id, time_in: '10:00', time_out: ''}
+      post :update, work_time: { id: @work_time2.id, time_in: '10:00', time_out: '' }
 
       @work_time2 = @work_time2.reload
       expect(@work_time2.time_in.hour).to be 10

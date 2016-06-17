@@ -20,7 +20,7 @@ class WorkDay < Hash
   # Check if given interval is the latest in this day's intervals
   #
   # @param interval - interval to check
-  def is_interval_latest?(interval)
+  def interval_latest?(interval)
     found = intervals.find { |i| i.id == interval.id }
     found.present? && found.id == intervals.last.id
   end
