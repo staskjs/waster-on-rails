@@ -2,25 +2,25 @@ require 'rails_helper'
 
 describe 'WorkTimeProcessor' do
   before :each do
-    create(:interval, time_in: '2016-04-30 11:00', time_out: '2016-04-30 17:00')
-    create(:interval, time_in: '2016-05-01 08:00', time_out: '2016-05-01 21:00')
-    create(:interval, time_in: '2016-05-02 10:00', time_out: '2016-05-02 17:00')
-    create(:interval, time_in: '2016-05-03 11:00', time_out: '2016-05-03 20:00')
-    create(:interval, time_in: '2016-05-04 12:00', time_out: '2016-05-04 16:00')
-    create(:interval, time_in: '2016-05-05 09:00', time_out: '2016-05-05 11:00')
-    create(:interval, time_in: '2016-05-05 14:00')
+    @user = create(:user)
+    @user.intervals << create(:interval, time_in: '2016-04-30 11:00', time_out: '2016-04-30 17:00')
+    @user.intervals << create(:interval, time_in: '2016-05-01 08:00', time_out: '2016-05-01 21:00')
+    @user.intervals << create(:interval, time_in: '2016-05-02 10:00', time_out: '2016-05-02 17:00')
+    @user.intervals << create(:interval, time_in: '2016-05-03 11:00', time_out: '2016-05-03 20:00')
+    @user.intervals << create(:interval, time_in: '2016-05-04 12:00', time_out: '2016-05-04 16:00')
+    @user.intervals << create(:interval, time_in: '2016-05-05 09:00', time_out: '2016-05-05 11:00')
+    @user.intervals << create(:interval, time_in: '2016-05-05 14:00')
 
+    @user.save
     # 22 hours worked + 3.5 hours until now
     # overtimes: -1.5, 0.5, -4.5
 
     @time_now = Time.new(2016, 5, 5, 17, 30, 0, 0)
     allow(Time).to receive(:now).and_return(@time_now)
 
-    @processor = WorkTimeProcessor.new('stub')
+    @processor = WorkTimeProcessor.new(@user)
   end
   it 'default days (current date, for week)' do
-    # ap WorkTimeProcessor.get('stub', Date.new(2016, 04, 30), 'week')
-    # ap @processor.days
 
     expect(@processor.days.length).to eq 4
   end
@@ -43,7 +43,8 @@ describe 'WorkTimeProcessor' do
 
   # Empty week has 0 overtime, because all days are not finished
   it 'total_overtime in empty week' do
-    @processor = WorkTimeProcessor.new('stub2')
+    user2 = create(:user)
+    @processor = WorkTimeProcessor.new(user2)
     expect(@processor.total_overtime).to eq 0
   end
 
@@ -61,7 +62,7 @@ describe 'WorkTimeProcessor' do
 
   it 'check' do
     @processor.check
-    @processor = WorkTimeProcessor.new('stub')
+    @processor = WorkTimeProcessor.new(@user)
     expect(@processor.checked_out?).to eq true
     # expect(@processor.days[3])
   end
@@ -76,10 +77,11 @@ describe 'WorkTimeProcessor' do
 
     it '2' do
       Interval.delete_all
-      create(:interval, time_in: '2016-05-02 07:41', time_out: '2016-05-02 16:25')
-      create(:interval, time_in: '2016-05-03 12:13', time_out: '2016-05-03 18:38')
-      create(:interval, time_in: '2016-05-07 07:35', time_out: '2016-05-07 17:37')
-      @processor = WorkTimeProcessor.new('stub')
+      @user.intervals << create(:interval, time_in: '2016-05-02 07:41', time_out: '2016-05-02 16:25')
+      @user.intervals << create(:interval, time_in: '2016-05-03 12:13', time_out: '2016-05-03 18:38')
+      @user.intervals << create(:interval, time_in: '2016-05-07 07:35', time_out: '2016-05-07 17:37')
+      @user.save
+      @processor = WorkTimeProcessor.new(@user)
       days = @processor.with_missing_days
       expect(days[0].overtime_minutes).to eq 14
       expect(days[1].overtime_minutes).to eq 125
@@ -98,7 +100,7 @@ describe 'WorkTimeProcessor' do
     end
 
     it 'month' do
-      @processor = WorkTimeProcessor.new('stub', nil, 'month')
+      @processor = WorkTimeProcessor.new(@user, nil, 'month')
       minutes = @processor.total_work_minutes
       expect(minutes).to eq 22 * 8.5 * 60
     end
@@ -108,7 +110,7 @@ describe 'WorkTimeProcessor' do
       minutes = @processor.total_work_minutes
       expect(minutes).to eq 4 * 8.5 * 60
 
-      @processor = WorkTimeProcessor.new('stub', nil, 'month')
+      @processor = WorkTimeProcessor.new(@user, nil, 'month')
       allow(@processor).to receive(:days_off).and_return([0, 5, 6])
       minutes = @processor.total_work_minutes
       expect(minutes).to eq 18 * 8.5 * 60

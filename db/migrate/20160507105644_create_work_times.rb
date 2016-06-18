@@ -3,7 +3,7 @@ class CreateWorkTimes < ActiveRecord::Migration
     create_table :work_times do |t|
       t.datetime :time_in
       t.datetime :time_out
-      t.string :user_id
+      t.integer :user_id
     end
   end
 end

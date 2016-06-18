@@ -15,6 +15,11 @@ module Api
       # TODO: check if interval actually belongs to current user
       interval = Interval.find(params[:interval][:id])
 
+      if interval.user_id != current_user.id
+        render json: { error: 'errors.interval.id.invalid' }
+        return
+      end
+
       attributes = params.require(:interval).permit(:time_in, :time_out)
       if attributes[:time_in].present?
         begin
@@ -34,7 +39,7 @@ module Api
         end
       end
 
-      @processor = WorkTimeProcessor.new('karpov')
+      @processor = WorkTimeProcessor.new(current_user)
 
       # Prevent deleting time_out from non-latest interval
       is_interval_latest = @processor.days.any? do |day|

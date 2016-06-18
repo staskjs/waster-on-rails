@@ -5,8 +5,8 @@ class WorkTimeProcessor
   attr_reader :left_minutes
   attr_reader :total_overtime
 
-  def initialize(username, date = nil, time_frame = 'week', _count_last = 1)
-    @username = username
+  def initialize(user, date = nil, time_frame = 'week', _count_last = 1)
+    @user = user
     @days_off = [0, 6]
     @daily_hours = 8.5
 
@@ -24,8 +24,7 @@ class WorkTimeProcessor
       end
 
     intervals =
-      Interval
-      .where(user_id: username)
+      @user.intervals
       .where(time_in: @date_range)
       .order(:time_in)
 

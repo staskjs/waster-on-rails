@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :omniauthable
 
   has_many :identities
+  has_many :intervals
 
   def self.from_omniauth(auth)
     identity = Identity.find_for_oauth(auth)

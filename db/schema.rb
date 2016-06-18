@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20160617095016) do
   create_table "intervals", force: :cascade do |t|
     t.datetime "time_in"
     t.datetime "time_out"
-    t.string   "user_id"
+    t.integer  "user_id"
   end
 
   create_table "users", force: :cascade do |t|

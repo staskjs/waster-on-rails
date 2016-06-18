@@ -4,8 +4,14 @@ describe Api::WorkTimeController, type: :controller do
 
   describe 'edit intervals' do
     before :each do
+      user = create(:user)
+      sign_in user
       @interval1 = create(:interval, time_in: '2016-05-05 09:00', time_out: '2016-05-05 11:00')
       @interval2 = create(:interval, time_in: '2016-05-05 14:00', time_out: '2016-05-05 17:30')
+
+      user.intervals << @interval1
+      user.intervals << @interval2
+      user.save
 
       @time_now = Time.new(2016, 5, 5, 17, 30, 0, 0)
       allow(Time).to receive(:now).and_return(@time_now)
