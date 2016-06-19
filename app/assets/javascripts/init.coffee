@@ -3,7 +3,7 @@
   'pascalprecht.translate'
   'Devise'
 ])
-.config ($routeProvider, $httpProvider, $translateProvider, $locationProvider) ->
+.config ($httpProvider, $translateProvider, $locationProvider) ->
 
   $locationProvider.html5Mode(true)
 
@@ -12,9 +12,22 @@
   $translateProvider.useLoader('railsLocalesLoader')
   $translateProvider.preferredLanguage('ru')
 
+.config ($routeProvider) ->
+
+  mainPageResolver =
+    main: (Auth, $location) ->
+      Auth.currentUser().then (user) ->
+        if user?
+          $location.path '/work_time'
+
   $routeProvider
     .when('/',
       templateUrl: 'pages/index.html'
+      controller: 'MainCtrl'
+      resolve: mainPageResolver
+    )
+    .when('/work_time',
+      templateUrl: 'pages/work_time.html'
       controller: 'WorkTimeCtrl'
     )
     .when('/about',

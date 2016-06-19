@@ -1,18 +1,19 @@
 module Api
   class WorkTimeController < ApplicationController
 
+    before_action :authenticate_user!
+
     def index
-      @processor = WorkTimeProcessor.new('karpov')
+      @processor = WorkTimeProcessor.new(current_user)
     end
 
     def check
-      @processor = WorkTimeProcessor.new('karpov')
+      @processor = WorkTimeProcessor.new(current_user)
       @processor.check
       render nothing: true
     end
 
     def update
-      # TODO: check if interval actually belongs to current user
       interval = Interval.find(params[:interval][:id])
 
       if interval.user_id != current_user.id

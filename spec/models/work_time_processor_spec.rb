@@ -20,6 +20,7 @@ describe 'WorkTimeProcessor' do
 
     @processor = WorkTimeProcessor.new(@user)
   end
+
   it 'default days (current date, for week)' do
 
     expect(@processor.days.length).to eq 4
