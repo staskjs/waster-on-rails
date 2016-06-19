@@ -1,5 +1,5 @@
 class WorkTimeProcessor
-  attr_reader :username
+  attr_reader :user
   attr_reader :days_off
   attr_reader :daily_hours
   attr_reader :left_minutes
@@ -25,7 +25,7 @@ class WorkTimeProcessor
 
     intervals =
       @user.intervals
-      .where(time_in: @date_range)
+      .where('DATE(time_in) BETWEEN ? AND ?', @date_range.begin.to_date, @date_range.end.to_date)
       .order(:time_in)
 
     # How many minutes is left to work
@@ -160,7 +160,7 @@ class WorkTimeProcessor
   #
   def check
     if checked_out?
-      Interval.create(user_id: @username, time_in: Time.current)
+      Interval.create(user_id: @user.id, time_in: Time.current)
     else
       unfinished_day.check_out
     end
