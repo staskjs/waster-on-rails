@@ -19,6 +19,7 @@
       Auth.currentUser().then (user) ->
         if user?
           $location.path '/work_time'
+      .catch(angular.noop)
 
   $routeProvider
     .when('/',
