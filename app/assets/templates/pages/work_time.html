@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="col-lg-2" ng-if="!day.is_missing">
-      <a href="#" ng-click="day.showEdit = !day.showEdit">Редактировать</a>
+      <a href="#" ng-click="day.showEdit = !day.showEdit">{{ 'pages.work_times.index.edit' | translate }}</a>
     </div>
   </div>
   <div ng-if="!day.is_missing && day.showEdit" class="row day-edit" ng-repeat="interval in day.editableIntervals">
@@ -29,7 +29,7 @@
         <input class="form-control" ng-model="interval.time_out" />
     </div>
     <div class="col-lg-2">
-      <button class="btn btn-warning" ng-click="updateInterval(interval)">{{ 'save' | translate }}</button>
+      <button class="btn btn-warning" ng-click="updateInterval(interval)">{{ 'pages.work_times.index.save' | translate }}</button>
     </div>
   </div>
 </div>

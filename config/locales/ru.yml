@@ -11,6 +11,8 @@ ru:
 
     work_times:
       index:
+        edit: Редактировать
+        save: Сохранить
         missing_day: Пропуск
         now: сейчас
         check_in: Я пришел

@@ -29,6 +29,8 @@ en:
 
     work_times:
       index:
+        edit: Edit
+        save: Save
         missing_day: Missing
         now: now
         check_in: Check in

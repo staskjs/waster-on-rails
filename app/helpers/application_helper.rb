@@ -12,7 +12,8 @@ module ApplicationHelper
     data = {
       env: Rails.env,
       assets: assets,
-      app_name: Rails.application.class.parent_name
+      app_name: Rails.application.class.parent_name,
+      locale: I18n.locale
     }
 
     <<-EOS.html_safe

@@ -3,14 +3,14 @@
   'pascalprecht.translate'
   'Devise'
 ])
-.config ($httpProvider, $translateProvider, $locationProvider) ->
+.config ($httpProvider, $translateProvider, $locationProvider, Rails) ->
 
   $locationProvider.html5Mode(true)
 
   $httpProvider.interceptors.push('railsAssetsInterceptor')
 
   $translateProvider.useLoader('railsLocalesLoader')
-  $translateProvider.preferredLanguage('ru')
+  $translateProvider.preferredLanguage(Rails.locale)
 
 .config ($routeProvider) ->
 
