@@ -1,0 +1,22 @@
+module Api
+  class UsersController < ApplicationController
+
+    def locale
+      locale = params[:locale].to_sym
+      if I18n.available_locales.exclude?(locale)
+        render json: {error: 'Unsupported locale'}
+        return
+      end
+
+      if user_signed_in?
+        current_user.update_attributes(locale: locale)
+      end
+      session[:locale] = locale
+
+      I18n.locale = locale
+
+      render nothing: true
+    end
+
+  end
+end

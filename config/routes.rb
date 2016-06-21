@@ -10,8 +10,12 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     scope :work_time, controller: :work_time do
       get '', action: :index
-      get 'check', action: :check
-      put 'update', action: :update
+      get 'check'
+      put 'update'
+    end
+
+    scope :users, controller: :users do
+      get 'locale'
     end
   end
 
