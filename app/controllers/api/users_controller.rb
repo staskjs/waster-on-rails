@@ -4,7 +4,7 @@ module Api
     def locale
       locale = params[:locale].to_sym
       if I18n.available_locales.exclude?(locale)
-        render json: {error: 'Unsupported locale'}
+        render json: {error: 'Unsupported locale'}, status: 406
         return
       end
 

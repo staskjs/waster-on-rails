@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
 
     scope :users, controller: :users do
-      get 'locale'
+      get 'locale/:locale', action: :locale
     end
   end
 

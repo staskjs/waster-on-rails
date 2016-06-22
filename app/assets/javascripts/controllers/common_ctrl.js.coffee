@@ -1,8 +1,12 @@
-@app.controller 'CommonCtrl', ($rootScope, Auth) ->
+@app.controller 'CommonCtrl', ($rootScope, Auth, $http) ->
 
   $rootScope.currentUser = null
 
   $rootScope.Auth = Auth
+
+  $rootScope.setLocale = (locale) ->
+    $http.get("/api/users/locale/#{locale}").then ->
+      location.reload()
 
   # Simple wrapping on routeChangeSuccess event, that generates custom event
   # with previous and current paths
