@@ -14,6 +14,11 @@
 
 .config ($routeProvider) ->
 
+  authResolver =
+    auth: (Auth, $location) ->
+      Auth.currentUser().catch ->
+        $location.path '/users/sign_in'
+
   mainPageResolver =
     main: (Auth, $location) ->
       Auth.currentUser().then (user) ->
@@ -30,6 +35,7 @@
     .when('/work_time',
       templateUrl: 'pages/work_time.html'
       controller: 'WorkTimeCtrl'
+      resolve: authResolver
     )
     .when('/about',
       templateUrl: 'pages/about.html'

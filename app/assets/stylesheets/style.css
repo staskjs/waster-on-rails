@@ -1,0 +1,299 @@
+/* Colors */
+/* /Colors */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  color: #444;
+}
+
+a {
+  color: #20a052;
+}
+
+/* input */
+.field {
+  margin: 0px 5px 0px 0px;
+  width: 100px;
+  display: inline-block;
+}
+
+.it {
+  font-size: 0.92857em;
+  border-radius: 3px;
+  padding: 10px 12px;
+  border: 1px solid #d9d9d9;
+  width: 100%;
+}
+.it:hover {
+  border: 1px solid #76e4a0;
+}
+.it:focus {
+  border: 1px solid #20a052;
+}
+.it:disabled {
+  border: 1px solid #d9d9d9;
+  background: #e6e6e6;
+}
+.it:disabled::-webkit-input-placeholder {
+  color: #d9d9d9;
+}
+.it:disabled::-moz-placeholder {
+  color: #d9d9d9;
+}
+.it:disabled:-moz-placeholder {
+  color: #d9d9d9;
+}
+.it:disabled:-ms-input-placeholder {
+  color: #d9d9d9;
+}
+
+/* /input */
+/* Typography */
+.h {
+  display: block;
+  font-weight: normal;
+}
+
+.__h_l {
+  font-size: 2.42857em;
+  line-height: 1.2em;
+}
+
+.__h_m {
+  font-size: 1.28571em;
+  line-height: 1.2em;
+}
+
+.__h_s {
+  font-size: 1em;
+  line-height: 1.2em;
+}
+
+.__h_xs {
+  font-size: 0.78571em;
+  line-height: 1.2em;
+}
+
+.tx {
+  color: #444;
+  display: block;
+  text-decoration: none;
+}
+
+.dscr {
+  font-size: 1.14286em;
+}
+
+.__light {
+  font-weight: 300;
+}
+
+/*/ Topography */
+.btn {
+  line-height: 1em;
+  background-color: #20a052;
+  color: #fff;
+  display: inline-block;
+  text-decoration: none;
+  padding: 14px 12px 12px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 1px solid #1f9c50;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+.btn:hover {
+  background-color: #28c666;
+  /*background: darken( $default, 3 ) */
+}
+.btn:active {
+  background-color: #146534;
+  border-bottom: 1px solid #0e4724;
+}
+.btn:disabled {
+  background: #20a052;
+  color: #49c87b;
+}
+.btn.__default {
+  background-color: #f6f6f6;
+  color: #444;
+  border-bottom: 1px solid silver;
+}
+.btn.__default:hover {
+  background-color: #eeeeee;
+}
+.btn.__default:active {
+  background-color: #dadada;
+}
+.btn.__default:disabled {
+  background-color: #f6f6f6;
+  color: #b9b9b9;
+}
+.btn.__slack {
+  background-color: #4C9689;
+  color: #fff;
+  border-bottom: 1px solid #284f48;
+}
+.btn.__slack:hover {
+  background-color: #478c80;
+}
+.btn.__slack:active {
+  background-color: #397167;
+}
+.btn.__slack:disabled {
+  background-color: #4C9689;
+  color: #23453f;
+}
+.btn.__full-width {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+/* Components */
+.lst {
+  display: block;
+}
+
+.lst_i, .lst_h {
+  display: block;
+  position: relative;
+  padding: 15px 0px;
+  border-top: 1px solid #e9e9e9;
+}
+.lst_i::after, .lst_h::after {
+  clear: both;
+  content: "";
+  display: table;
+}
+.lst_i:first-child, .lst_h:first-child {
+  border-top: 0;
+}
+
+.lst_lk {
+  display: block;
+  text-decoration: none;
+  color: #444;
+  position: relative;
+}
+
+.lst_more {
+  margin-top: 10px;
+  text-align: right;
+}
+
+/* Components */
+.header {
+  text-align: center;
+  padding: 50px 0px;
+}
+
+.header_logo_text {
+  color: #20a052;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.71429em;
+  font-weight: bold;
+}
+
+.header_logo_dscr {
+  color: #dddddd;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.71429em;
+  font-weight: bold;
+}
+
+.header_logo_dot {
+  color: #20a052;
+}
+
+.hide {
+  display: none !important;
+}
+
+.edit {
+  display: block;
+  text-align: right;
+}
+
+.edit-form {
+  display: block;
+  text-align: right;
+  margin-top: 10px;
+}
+
+.timer-lst {
+  margin-bottom: 30px;
+  padding-left: 0px;
+}
+
+.timer-lst_day {
+  display: inline-block;
+  font-weight: bold;
+}
+
+.result {
+  padding: 30px;
+  background: #dddddd;
+  color: #444;
+  margin-bottom: 30px;
+  border-radius: 4px;
+}
+
+.result_work {
+  margin-bottom: 15px;
+}
+
+.result_finish {
+  margin-bottom: 15px;
+}
+
+.result_advice {
+  margin-bottom: 30px;
+}
+
+.result_param {
+  font-weight: bold;
+}
+
+.fool {
+  color: #d40808;
+  margin-bottom: 50px;
+}
+
+.prefooter {
+  padding: 30px;
+  background: #4D394B;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.prefooter a {
+  color: white;
+}
+
+.slack_name {
+  margin-bottom: 30px;
+}
+
+.footer {
+  text-align: center;
+  padding: 30px 0px;
+}
+
+.copyright {
+  text-decoration: none;
+  color: #444;
+}
+.copyright:hover {
+  text-decoration: underline;
+}

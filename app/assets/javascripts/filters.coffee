@@ -5,6 +5,7 @@
 
 .filter 'minutesToHuman', ($filter) ->
   (minutes) ->
+    return 0 unless minutes?
     minutes = minutes.abs()
     hours = (minutes / 60).floor()
     hoursMinutes = (minutes % 60).floor()
