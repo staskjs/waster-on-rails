@@ -32,6 +32,11 @@
       controller: 'MainCtrl'
       resolve: mainPageResolver
     )
+    .when('/profile',
+      templateUrl: 'pages/users/profile.html'
+      controller: 'ProfileCtrl'
+      resolve: authResolver
+    )
     .when('/work_time',
       templateUrl: 'pages/work_time.html'
       controller: 'WorkTimeCtrl'

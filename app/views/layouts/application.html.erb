@@ -56,6 +56,10 @@
           <a href="/users/sign_in">{{ 'menu.sign_in' | translate }}</a>
         </span>
         <span class="menu_item" ng-if="Auth.isAuthenticated()">
+          <a href="/profile">{{ 'menu.profile' | translate }}</a>
+          |
+        </span>
+        <span class="menu_item" ng-if="Auth.isAuthenticated()">
           <a href="" ng-click="Auth.logout()">{{ 'menu.sign_out' | translate }}</a>
         </span>
       </div>
