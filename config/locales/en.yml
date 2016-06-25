@@ -26,6 +26,8 @@ en:
     users:
       sign_in:
         title: Sign In
+        vk: Sign in with Vkontakte
+        google: Sign in with Google
 
     work_times:
       index:

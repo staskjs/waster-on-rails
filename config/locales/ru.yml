@@ -8,6 +8,8 @@ ru:
     users:
       sign_in:
         title: Вход
+        vk: Войти с помощью ВКонтакте
+        google: Войти с помощью Google
 
     work_times:
       index:

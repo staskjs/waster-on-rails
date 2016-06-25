@@ -18,12 +18,8 @@ class ApplicationController < ActionController::Base
       else
         current_user.update_attributes(locale: I18n.locale)
       end
-    else
-      if session[:locale]
-        I18n.locale = session[:locale]
-      else
-        
-      end
+    elsif session[:locale]
+      I18n.locale = session[:locale]
     end
   end
 

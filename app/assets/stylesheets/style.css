@@ -202,6 +202,10 @@ a {
   font-weight: bold;
 }
 
+.header_logo_text a {
+  text-decoration: none;
+}
+
 .header_logo_dscr {
   color: #dddddd;
   text-transform: uppercase;

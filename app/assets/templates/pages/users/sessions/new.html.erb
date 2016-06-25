@@ -1,6 +1,15 @@
 <% self.class.include Rails.application.routes.url_helpers %>
 <h2>{{ 'pages.users.sign_in.title' | translate }}</h2>
 
-<% User.omniauth_providers.each do |provider| %>
-  <a target="_blank" href="<%= user_omniauth_authorize_path(provider) %>">Sign in with <%= OmniAuth::Utils.camelize(provider) %></a>
-<% end %>
+<div class="row">
+  <div class="col-lg-12">
+    <a target="_self" href="<%= user_omniauth_authorize_path(:google_oauth2) %>">
+      {{ 'pages.users.sign_in.google' | translate }}
+    </a>
+  </div>
+  <div class="col-lg-12">
+    <a target="_self" href="<%= user_omniauth_authorize_path(:vkontakte) %>">
+      {{ 'pages.users.sign_in.vk' | translate }}
+    </a>
+  </div>
+</div>
