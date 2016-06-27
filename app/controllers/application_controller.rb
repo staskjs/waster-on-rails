@@ -9,6 +9,14 @@ class ApplicationController < ActionController::Base
     render layout: 'application'
   end
 
+  protected
+
+  def call_rake(task, options = {})
+    options[:rails_env] ||= Rails.env
+    args = options.map { |name, value| "#{name.to_s.upcase}='#{value}'" }
+    system "cd #{Rails.root}; bundle exec rake #{task} #{args.join(' ')} --trace 2>&1 >> #{Rails.root}/log/rake.log &"
+  end
+
   private
 
   def set_locale

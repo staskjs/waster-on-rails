@@ -18,5 +18,11 @@ module Api
       render nothing: true
     end
 
+    def import
+      call_rake('legacy:import', {waster_username: params[:username]})
+
+      render text: 'Import started'
+    end
+
   end
 end

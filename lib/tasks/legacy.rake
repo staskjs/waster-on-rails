@@ -1,10 +1,15 @@
 require 'net/http'
 namespace :legacy do
 
-  desc 'Copy wll intervals from another database'
-  task copy: :environment do
+  desc 'Import intervals from another database'
+  task import: :environment do
 
-    username = 'karpov_s'
+    username = ENV['WASTER_USERNAME']
+    if username.nil? || username.empty?
+      puts 'No username'
+      exit
+    end
+
     user = User.find(1)
 
     user_dates = user.intervals.pluck(:time_in).map(&:to_date)
