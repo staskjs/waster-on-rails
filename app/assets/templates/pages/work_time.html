@@ -56,6 +56,12 @@
   <div class="result_work">
     {{ 'pages.work_times.index.left_to_work' | translate }}: {{ data.left_minutes | minutesToHuman }}
   </div>
+  <div class="result_finish" ng-show="!data.checked_out">
+    {{ 'pages.work_times.index.work_day_ends_at' | translate }}: {{ data.day_ends_at | date: 'HH:mm' }}
+  </div>
+  <!-- <div class="result_advice"> -->
+    <!-- Рекомендуемый конец рабочего дня в 18:54 -->
+  <!-- </div> -->
 
   <br>
   <div>

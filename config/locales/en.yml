@@ -41,6 +41,7 @@ en:
         total_overtime: Total overtime
         total_undertime: Total undertime
         left_to_work: Left to work
+        work_day_ends_at: Work day ends at
 
 
   menu:

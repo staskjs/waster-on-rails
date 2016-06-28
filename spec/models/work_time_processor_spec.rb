@@ -68,6 +68,10 @@ describe 'WorkTimeProcessor' do
     # expect(@processor.days[3])
   end
 
+  it 'day ends at' do
+    expect(@processor.day_ends_at).to eq DateTime.current.change(hour: 20, min: 30)
+  end
+
   describe 'overtimes' do
     it '1' do
       expect(@processor.days[0].overtime_minutes).to eq 90

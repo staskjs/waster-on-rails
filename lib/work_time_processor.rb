@@ -4,6 +4,7 @@ class WorkTimeProcessor
   attr_reader :daily_hours
   attr_reader :left_minutes
   attr_reader :total_overtime
+  attr_reader :day_ends_at
 
   def initialize(user, date = nil, time_frame = 'week', _count_last = 1)
     @user = user
@@ -71,6 +72,15 @@ class WorkTimeProcessor
     end
 
     @total_overtime = days.sum(&:overtime)
+
+    # Ideal time when day should be finished
+    # Calculated depending on how many hours should be worked at this day
+    @day_ends_at = nil
+    if unfinished_day
+      left_today = get_minutes_in_day(Date.current) - unfinished_day.total_worked
+      left_today = @left_minutes if @left_minutes < left_today
+      @day_ends_at = Time.now + left_today * 60
+    end
 
     # TODO: when to finish work (distributed overtime between rest of days)
     # TODO: when to finish work (start of work + daily hours)

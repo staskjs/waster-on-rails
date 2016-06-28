@@ -23,6 +23,7 @@ ru:
         total_overtime: Общая переработка
         total_undertime: Общая недоработка
         left_to_work: Осталось работать
+        work_day_ends_at: Конец рабочего дня в
 
   menu:
     sign_in: Вход
