@@ -19,7 +19,7 @@ module Api
     end
 
     def import
-      call_rake('legacy:import', {waster_username: params[:username]})
+      call_rake('legacy:import', {waster_username: params[:username], user_id: current_user.id})
 
       render text: 'Import started'
     end

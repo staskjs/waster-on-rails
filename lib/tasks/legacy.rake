@@ -10,7 +10,13 @@ namespace :legacy do
       exit
     end
 
-    user = User.find(1)
+    user_id = ENV['USER_ID']
+    if user_id.nil? || user_id.empty?
+      puts 'No user_id'
+      exit
+    end
+
+    user = User.find(user_id)
 
     user_dates = user.intervals.pluck(:time_in).map(&:to_date)
 
