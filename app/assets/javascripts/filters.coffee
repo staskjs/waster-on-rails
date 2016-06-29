@@ -3,6 +3,12 @@
   (date) ->
     moment(date).format('d')
 
+.filter 'shortDate', ($filter) ->
+  (date) ->
+    month = $filter('translate')("date.month_names.#{moment(date).format('M')}")
+    day = moment(date).format('D')
+    $filter('translate')('date.work_time', {month: month, day: day})
+
 .filter 'minutesToHuman', ($filter) ->
   (minutes) ->
     return 0 unless minutes?

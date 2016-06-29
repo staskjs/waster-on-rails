@@ -20,6 +20,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  date:
+    work_time: "{{ month }}, {{ day }}"
   minutes_to_human: "{{ hours }}h {{ minutes }}m"
 
   pages:
