@@ -1,6 +1,9 @@
-@app.controller 'WorkTimeCtrl', ($scope, WorkTime) ->
+@app.controller 'WorkTimeCtrl', ($scope, $location, WorkTime) ->
+  date = $location.search().date ? null
+  last = 1
+
   load = ->
-    WorkTime.get().then (data) ->
+    WorkTime.get(date: date, last: last).then (data) ->
       $scope.data = data
 
   $scope.check = ->

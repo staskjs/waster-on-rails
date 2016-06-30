@@ -4,7 +4,8 @@ module Api
     before_action :authenticate_user!
 
     def index
-      @processor = WorkTimeProcessor.new(current_user)
+      date = params[:date] ? Date.parse(params[:date]) : nil
+      @processor = WorkTimeProcessor.new(current_user, date)
     end
 
     def check

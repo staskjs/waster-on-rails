@@ -1,8 +1,12 @@
 @app.service 'WorkTime', class
   constructor: (@$http, @$filter) ->
 
-  get: ->
-    @$http.get('/api/work_time').then (response) =>
+  get: (params = {}) ->
+    @$http
+      method: 'GET'
+      url: '/api/work_time'
+      params: params
+    .then (response) =>
 
       # Remove all days after last checked in day
       # (that is a last non-missing day)
