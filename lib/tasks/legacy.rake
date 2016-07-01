@@ -39,9 +39,7 @@ namespace :legacy do
             from = Time.zone.parse(work_time['from'])
             time_in = day_date.change(hour: from.hour, min: from.min, offset: '+0300')
 
-            if work_time['to'] == 'сейчас'
-              work_time['to'] = '23:59'
-            end
+            work_time['to'] = '23:59' if work_time['to'] == 'сейчас'
             to = Time.zone.parse(work_time['to'])
             time_out = day_date.change(hour: to.hour, min: to.min, offset: '+0300')
           rescue

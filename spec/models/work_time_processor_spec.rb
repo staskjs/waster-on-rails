@@ -59,6 +59,19 @@ describe 'WorkTimeProcessor' do
     expect(@processor.unfinished_day).to eq @processor.days[3]
   end
 
+  it 'range finished' do
+    expect(@processor.range_finished?).to eq false
+
+    @processor.check
+    @processor = WorkTimeProcessor.new(@user)
+    expect(@processor.range_finished?).to eq false
+
+    @user.intervals << create(:interval, time_in: '2016-05-06 09:00', time_out: '2016-05-06 11:00')
+
+    @processor = WorkTimeProcessor.new(@user)
+    expect(@processor.range_finished?).to eq true
+  end
+
   # TODO: test when checked out next day
 
   it 'check' do

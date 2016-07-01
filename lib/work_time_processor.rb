@@ -139,7 +139,16 @@ class WorkTimeProcessor
   def with_missing_days
     @dates = days.map(&:date)
     @date_range.map do |date|
+
       next days.find { |day| day.date == date } if @dates.include?(date)
+
+      # Subtract missed days from left minutes too
+      if !day_off?(date) && date < Date.current
+        work_day_minutes = get_minutes_in_day(date)
+        @left_minutes -= work_day_minutes
+
+        @left_minutes = 0 if @left_minutes < 0
+      end
 
       WorkDay.new(intervals: [],
                   date: date,
@@ -151,6 +160,17 @@ class WorkTimeProcessor
                   is_day_off: day_off?(date))
 
     end
+  end
+
+  # Check whether date range (week or month) is finished,
+  # meaning all days except days off are checked out
+  def range_finished?
+    with_missing_days
+      .select { |day| !day.is_day_off }
+      .all? do |day|
+        return false if day.is_missing
+        day.is_finished
+      end
   end
 
   # Whether user does not have unfinished day

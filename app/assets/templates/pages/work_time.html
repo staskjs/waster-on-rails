@@ -56,7 +56,7 @@
     </span>
   </div>
 
-  <div class="result_work">
+  <div class="result_work" ng-show="!data.range_finished">
     {{ 'pages.work_times.index.left_to_work' | translate }}: {{ data.left_minutes | minutesToHuman }}
   </div>
   <div class="result_finish" ng-show="!data.checked_out">
