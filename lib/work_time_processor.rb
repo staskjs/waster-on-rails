@@ -5,6 +5,8 @@ class WorkTimeProcessor
   attr_reader :left_minutes
   attr_reader :total_overtime
   attr_reader :day_ends_at
+  attr_reader :date_range
+  attr_reader :time_frame
 
   def initialize(user, date = nil, time_frame = 'week', _count_last = 1)
     @user = user

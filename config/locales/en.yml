@@ -36,9 +36,14 @@ en:
         edit: Edit
         save: Save
         missing_day: Missing
+        day_off: Day off
         now: now
         check_in: Check in
         check_out: Check out
+        back_month: Month back
+        forward_month: Month forward
+        back_week: Week back
+        forward_week: Week forward
 
         total_overtime: Total overtime
         total_undertime: Total undertime

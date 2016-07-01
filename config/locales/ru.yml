@@ -18,9 +18,14 @@ ru:
         edit: Редактировать
         save: Сохранить
         missing_day: Пропуск
+        day_off: Выходной
         now: сейчас
         check_in: Я пришел
         check_out: Я ухожу
+        back_month: Прошлый месяц
+        forward_month: Следующий месяц
+        back_week: Прошлая неделя
+        forward_week: Следующая неделя
 
         total_overtime: Общая переработка
         total_undertime: Общая недоработка

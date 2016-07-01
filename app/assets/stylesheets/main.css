@@ -2,6 +2,10 @@
   /* padding: 50px; */
 /* } */
 
+.pointer {
+  cursor: pointer;
+}
+
 .day {
   margin-top: 10px;
 }
@@ -29,4 +33,8 @@
 
 .undertime {
   color: red;
+}
+
+.time-frame {
+  text-align: center;
 }
