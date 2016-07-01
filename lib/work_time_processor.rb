@@ -83,7 +83,6 @@ class WorkTimeProcessor
     end
 
     # TODO: when to finish work (distributed overtime between rest of days)
-    # TODO: when to finish work (start of work + daily hours)
   end
 
   # Contains array of WorkDay elements which represent
