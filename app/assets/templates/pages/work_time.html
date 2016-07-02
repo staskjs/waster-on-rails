@@ -1,18 +1,14 @@
 <div class="row">
-  <div class="col-lg-4">
-    <div class="pull-left">
-      <a href="" ng-click="back()">{{ 'pages.work_times.index.back_week' | translate }}</a>
-    </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 pull-left">
+    <a href="" ng-click="back()">{{ 'pages.work_times.index.back_week' | translate }}</a>
   </div>
-  <div class="col-lg-4" ng-show="data.time_frame == 'week'">
+  <div class="col-lg-4 col-md-4 col-sm-4" ng-show="data.time_frame == 'week'">
     <div class="center-block time-frame">
       {{ data.range_begin | shortDate }} - {{ data.range_end | shortDate }}
     </div>
   </div>
-  <div class="col-lg-4">
-    <div class="pull-right">
-      <a href="" ng-click="forward()">{{ 'pages.work_times.index.forward_week' | translate }}</a>
-    </div>
+  <div class="col-lg-4 col-md-4 col-sm-4 pull-right">
+    <a href="" ng-click="forward()">{{ 'pages.work_times.index.forward_week' | translate }}</a>
   </div>
 </div>
 <ul class="lst timer-lst">
