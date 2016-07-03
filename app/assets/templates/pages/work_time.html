@@ -1,14 +1,22 @@
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-4 pull-left">
-    <a href="" ng-click="back()">{{ 'pages.work_times.index.back_week' | translate }}</a>
+    <a href="" ng-click="back()">
+      <span ng-show="data.time_frame == 'week'">{{ 'pages.work_times.index.back_week' | translate }}</span>
+      <span ng-show="data.time_frame == 'month'">{{ 'pages.work_times.index.back_month' | translate }}</span>
+    </a>
   </div>
-  <div class="col-lg-4 col-md-4 col-sm-4" ng-show="data.time_frame == 'week'">
+  <div class="col-lg-4 col-md-4 col-sm-4">
     <div class="center-block time-frame">
       {{ data.range_begin | shortDate }} - {{ data.range_end | shortDate }}
     </div>
   </div>
-  <div class="col-lg-4 col-md-4 col-sm-4 pull-right">
-    <a href="" ng-click="forward()">{{ 'pages.work_times.index.forward_week' | translate }}</a>
+  <div class="col-lg-4 col-md-4 col-sm-4">
+    <div class="pull-right">
+      <a href="" ng-click="forward()">
+        <span ng-show="data.time_frame == 'week'">{{ 'pages.work_times.index.forward_week' | translate }}</span>
+        <span ng-show="data.time_frame == 'month'">{{ 'pages.work_times.index.forward_month' | translate }}</span>
+      </a>
+    </div>
   </div>
 </div>
 <ul class="lst timer-lst">
