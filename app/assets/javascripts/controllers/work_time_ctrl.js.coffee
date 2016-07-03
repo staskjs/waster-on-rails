@@ -9,8 +9,10 @@
     timeFrame = 'week'
 
   load = ->
-    WorkTime.get(date: date.format('YYYY-MM-DD'), last: last, time_frame: timeFrame).then (data) ->
+    formattedDate = date.format('YYYY-MM-DD')
+    WorkTime.get(date: formattedDate, last: last, time_frame: timeFrame).then (data) ->
       $scope.data = data
+      $location.search(date: formattedDate, last: last, time_frame: timeFrame)
 
   $scope.check = ->
     WorkTime.check().then(load)

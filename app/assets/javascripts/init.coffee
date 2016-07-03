@@ -40,6 +40,7 @@
     .when('/work_time',
       templateUrl: 'pages/work_time.html'
       controller: 'WorkTimeCtrl'
+      reloadOnSearch: false
       resolve: authResolver
     )
     .when('/about',
