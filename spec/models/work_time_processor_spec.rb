@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'WorkTimeProcessor' do
   before :each do
-    @user = create(:user)
+    @user = create(:user, daily_hours: 8.5)
     @user.intervals << create(:interval, time_in: '2016-04-30 11:00', time_out: '2016-04-30 17:00')
     @user.intervals << create(:interval, time_in: '2016-05-01 08:00', time_out: '2016-05-01 21:00')
     @user.intervals << create(:interval, time_in: '2016-05-02 10:00', time_out: '2016-05-02 17:00')

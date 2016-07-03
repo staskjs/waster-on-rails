@@ -24,7 +24,15 @@ en:
     work_time: "{{ month }}, {{ day }}"
   minutes_to_human: "{{ hours }}h {{ minutes }}m"
 
+  buttons:
+    edit: Edit
+    save: Save
+
   pages:
+    profile:
+      index:
+        daily_hours: How long your working day lasts (in hours)?
+
     users:
       sign_in:
         title: Sign In
@@ -33,8 +41,6 @@ en:
 
     work_times:
       index:
-        edit: Edit
-        save: Save
         missing_day: Missing
         day_off: Day off
         now: now
@@ -49,7 +55,6 @@ en:
         total_undertime: Total undertime
         left_to_work: Left to work
         work_day_ends_at: Work day ends at
-
 
   menu:
     sign_in: Sign In

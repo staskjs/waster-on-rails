@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160621090347) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20160703152719) do
 
   create_table "identities", force: :cascade do |t|
     t.integer  "user_id"
@@ -24,7 +21,7 @@ ActiveRecord::Schema.define(version: 20160621090347) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "identities", ["user_id"], name: "index_identities_on_user_id", using: :btree
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
   create_table "intervals", force: :cascade do |t|
     t.datetime "time_in"
@@ -50,10 +47,12 @@ ActiveRecord::Schema.define(version: 20160621090347) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.string   "locale"
+    t.float    "daily_hours"
+    t.string   "days_off"
   end
 
-  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

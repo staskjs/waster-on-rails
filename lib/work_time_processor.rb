@@ -1,7 +1,6 @@
 class WorkTimeProcessor
   attr_reader :user
   attr_reader :days_off
-  attr_reader :daily_hours
   attr_reader :left_minutes
   attr_reader :total_overtime
   attr_reader :day_ends_at
@@ -11,7 +10,6 @@ class WorkTimeProcessor
   def initialize(user, date = nil, time_frame = 'week', _count_last = 1)
     @user = user
     @days_off = [0, 6]
-    @daily_hours = 8.5
 
     @date = date
     @time_frame = time_frame
@@ -101,7 +99,7 @@ class WorkTimeProcessor
   # @return number of minutes in selected date
   #
   def get_minutes_in_day(date)
-    hours = self.class.special_days[:days][date.to_s] || daily_hours
+    hours = self.class.special_days[:days][date.to_s] || user.daily_hours
     hours * 60
   end
 
@@ -153,7 +151,7 @@ class WorkTimeProcessor
 
       WorkDay.new(intervals: [],
                   date: date,
-                  total_worked: @daily_hours,
+                  total_worked: user.daily_hours,
                   is_overtime: false,
                   overtime_minutes: 0,
                   is_finished: true,

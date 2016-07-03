@@ -6,7 +6,15 @@ ru:
 
   minutes_to_human: "{{ hours }} ч. {{ minutes }} мин."
 
+  buttons:
+    edit: Редактировать
+    save: Сохранить
+
   pages:
+    profile:
+      index:
+        daily_hours: Сколько длится ваш рабочий день (в часах)?
+
     users:
       sign_in:
         title: Вход
@@ -15,8 +23,6 @@ ru:
 
     work_times:
       index:
-        edit: Редактировать
-        save: Сохранить
         missing_day: Пропуск
         day_off: Выходной
         now: сейчас

@@ -16,10 +16,22 @@ module Api
       render nothing: true
     end
 
+    def profile
+      current_user.update_attributes(profile_attributes)
+
+      render nothing: true
+    end
+
     def import
       call_rake('legacy:import', waster_username: params[:username], user_id: current_user.id)
 
       render text: 'Import started'
+    end
+
+    private
+
+    def profile_attributes
+      params.require(:user).permit(:daily_hours)
     end
 
   end

@@ -30,4 +30,8 @@ class User < ActiveRecord::Base
   def password_required?
     false
   end
+
+  def daily_hours
+    super || 0
+  end
 end

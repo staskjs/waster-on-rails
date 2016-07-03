@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     scope :users, controller: :users do
       get 'locale/:locale', action: :locale
       get 'import'
+      put 'profile'
     end
   end
 
