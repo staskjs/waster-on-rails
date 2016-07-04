@@ -15,20 +15,23 @@
 .config ($routeProvider) ->
 
   authResolver = (Auth, $location) ->
-      Auth.currentUser().catch ->
-        $location.path '/users/sign_in'
+    'ngInject'
+    Auth.currentUser().catch ->
+      $location.path '/users/sign_in'
 
   mainPageResolver = (Auth, $location) ->
-      Auth.currentUser().then (user) ->
-        if user?
-          $location.path '/work_time'
-      .catch(angular.noop)
+    'ngInject'
+    Auth.currentUser().then (user) ->
+      if user?
+        $location.path '/work_time'
+    .catch(angular.noop)
 
   dailyHoursResolver = (Auth, $location) ->
-      Auth.currentUser().then (user) ->
-        if user? and (not user.daily_hours? or user.daily_hours is 0)
-          $location.path '/profile/ask'
-      .catch(angular.noop)
+    'ngInject'
+    Auth.currentUser().then (user) ->
+      if user? and (not user.daily_hours? or user.daily_hours is 0)
+        $location.path '/profile/ask'
+    .catch(angular.noop)
 
   $routeProvider
     .when('/',
