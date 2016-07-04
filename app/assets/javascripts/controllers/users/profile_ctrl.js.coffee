@@ -1,4 +1,4 @@
-@app.controller 'ProfileCtrl', ($scope, $http, Auth) ->
+@app.controller 'ProfileCtrl', ($scope, $location, $http, Auth) ->
   $scope.data = {}
 
   Auth.currentUser().then (user) ->
@@ -11,3 +11,6 @@
       data:
         user:
           daily_hours: $scope.data.dailyHours
+    .then ->
+      if $scope.currentPath is 'profile/ask'
+        location.href = '/'

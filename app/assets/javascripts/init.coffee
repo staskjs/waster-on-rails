@@ -14,34 +14,48 @@
 
 .config ($routeProvider) ->
 
-  authResolver =
-    auth: (Auth, $location) ->
+  authResolver = (Auth, $location) ->
       Auth.currentUser().catch ->
         $location.path '/users/sign_in'
 
-  mainPageResolver =
-    main: (Auth, $location) ->
+  mainPageResolver = (Auth, $location) ->
       Auth.currentUser().then (user) ->
         if user?
           $location.path '/work_time'
+      .catch(angular.noop)
+
+  dailyHoursResolver = (Auth, $location) ->
+      Auth.currentUser().then (user) ->
+        if user? and (not user.daily_hours? or user.daily_hours is 0)
+          $location.path '/profile/ask'
       .catch(angular.noop)
 
   $routeProvider
     .when('/',
       templateUrl: 'pages/index.html'
       controller: 'MainCtrl'
-      resolve: mainPageResolver
+      resolve:
+        main: mainPageResolver
     )
     .when('/profile',
       templateUrl: 'pages/users/profile.html'
       controller: 'ProfileCtrl'
-      resolve: authResolver
+      resolve:
+        auth: authResolver
+    )
+    .when('/profile/ask',
+      templateUrl: 'pages/users/ask.html'
+      controller: 'ProfileCtrl'
+      resolve:
+        auth: authResolver
     )
     .when('/work_time',
       templateUrl: 'pages/work_time.html'
       controller: 'WorkTimeCtrl'
       reloadOnSearch: false
-      resolve: authResolver
+      resolve:
+        auth: authResolver
+        hours: dailyHoursResolver
     )
     .when('/about',
       templateUrl: 'pages/about.html'
