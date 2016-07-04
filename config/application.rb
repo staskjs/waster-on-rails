@@ -39,5 +39,5 @@ module Waster
       DeviseController.respond_to :html, :json
     end
   end
-  OmniAuth.config.full_host = 'http://waster.karpov.co.vu'
+  OmniAuth.config.full_host = 'http://waster.info'
 end

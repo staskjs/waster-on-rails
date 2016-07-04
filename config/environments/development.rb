@@ -44,4 +44,5 @@ Rails.application.configure do
   }
 
   BetterErrors::Middleware.allow_ip! Figaro.env.trusted_ip if Figaro.env.trusted_ip
+  OmniAuth.config.full_host = 'http://waster.karpov.co.vu'
 end
