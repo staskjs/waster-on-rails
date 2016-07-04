@@ -43,7 +43,7 @@ namespace :legacy do
             to = Time.zone.parse(work_time['to'])
             time_out = day_date.change(hour: to.hour, min: to.min, offset: '+0300')
           rescue
-            ap work_time
+            puts work_time.inspect
           end
 
           if user_dates.exclude?(time_in.to_date)
@@ -57,7 +57,7 @@ namespace :legacy do
       date -= 7.days
     end
 
-    ap intervals
+    puts "Imported #{intervals.length} intervals"
 
     Interval.create(intervals)
 
