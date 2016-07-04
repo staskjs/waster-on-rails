@@ -1,5 +1,5 @@
 # paths
-app_path = "~/projects/new_waster"
+app_path = "/home/karpov/projects/new_waster"
 working_directory "#{app_path}/current"
 pid               "#{app_path}/current/tmp/pids/unicorn.pid"
 
