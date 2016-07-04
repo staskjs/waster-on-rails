@@ -1,10 +1,10 @@
 # paths
-app_path = "/home/karpov/projects/new_waster"
+app_path = "~/projects/new_waster"
 working_directory "#{app_path}/current"
 pid               "#{app_path}/current/tmp/pids/unicorn.pid"
 
 # listen
-listen "/tmp/new-waster.sock", backlog: 64
+listen "#{working_directory}/tmp/sockets/unicorn.sock", backlog: 64
 
 # logging
 stderr_path "log/unicorn.stderr.log"

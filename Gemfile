@@ -25,7 +25,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-gem 'unicorn'
+gem 'unicorn', '~> 5.1.0'
 
 gem 'figaro', '~> 1.1.1'
 
@@ -75,9 +75,9 @@ end
 group :development do
   #
   # Use Capistrano for deployment
-  gem 'capistrano-rails'
-  gem 'capistrano-rvm'
-  gem 'capistrano3-unicorn'
+  gem 'capistrano-rails', '~> 1.1.7'
+  gem 'capistrano-rvm', '~> 0.1.2'
+  gem 'capistrano3-unicorn', '~> 0.2.1'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'

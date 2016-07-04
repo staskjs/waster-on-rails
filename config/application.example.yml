@@ -1,0 +1,18 @@
+db_host: localhost
+db_name: db_name
+db_user: db_user
+db_pass: db_pass
+
+google_app_id:
+google_app_secret:
+vk_app_id:
+vk_app_secret:
+
+secret_key_base: # Generate using rake secret
+
+test:
+  db_host: localhost
+
+development:
+  db_host: localhost
+  db_name: db_name
