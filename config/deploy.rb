@@ -3,6 +3,11 @@ lock '3.5.0'
 
 set :repo_url, 'https://github.com/staskjs/waster-on-rails.git'
 
+set :assets_roles, [:app]
+set :rails_env, :production
+set :migration_role, :app
+set :migration_servers, -> { primary(fetch(:migration_role)) }
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
