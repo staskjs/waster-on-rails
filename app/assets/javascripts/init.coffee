@@ -34,28 +34,23 @@
     .when('/',
       templateUrl: 'pages/index.html'
       controller: 'MainCtrl'
-      resolve:
-        main: mainPageResolver
+      resolve: {mainPageResolver}
     )
     .when('/profile',
       templateUrl: 'pages/users/profile.html'
       controller: 'ProfileCtrl'
-      resolve:
-        auth: authResolver
+      resolve: {authResolver}
     )
     .when('/profile/ask',
       templateUrl: 'pages/users/ask.html'
       controller: 'ProfileCtrl'
-      resolve:
-        auth: authResolver
+      resolve: {authResolver}
     )
     .when('/work_time',
       templateUrl: 'pages/work_time.html'
       controller: 'WorkTimeCtrl'
       reloadOnSearch: false
-      resolve:
-        auth: authResolver
-        hours: dailyHoursResolver
+      resolve: {authResolver, dailyHoursResolver}
     )
     .when('/about',
       templateUrl: 'pages/about.html'
