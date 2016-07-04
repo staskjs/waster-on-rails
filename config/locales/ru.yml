@@ -26,8 +26,8 @@ ru:
         missing_day: Пропуск
         day_off: Выходной
         now: сейчас
-        check_in: Я пришел
-        check_out: Я ухожу
+        check_in: Начать
+        check_out: Закончить
         back_month: Прошлый месяц
         forward_month: Следующий месяц
         back_week: Прошлая неделя
