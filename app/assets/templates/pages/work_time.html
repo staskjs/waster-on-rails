@@ -21,9 +21,8 @@
 </div>
 <ul class="lst timer-lst">
   <li class="lst_i timer-lst_i" ng-class="{pointer: !day.is_missing}"
-      ng-click="day.showEdit = !day.showEdit"
       ng-repeat="day in data.days">
-    <div class="row">
+    <div class="row" ng-click="day.showEdit = !day.showEdit">
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
         <span class="timer-lst_day">
           {{ 'date.day_names.'+(day.date | weekDay) | translate }}, 
