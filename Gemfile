@@ -35,6 +35,8 @@ gem 'hashie', '~> 3.4.4'
 
 gem 'russian', '~> 0.6.0'
 
+gem 'whenever', '~> 0.9.7'
+
 gem 'devise', '~> 3.5.6'
 gem 'omniauth', '~> 1.3.1'
 gem 'omniauth-google-oauth2', '~> 0.4.0'
