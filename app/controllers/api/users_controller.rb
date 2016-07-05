@@ -19,7 +19,7 @@ module Api
     def profile
       current_user.update_attributes(profile_attributes)
 
-      render nothing: true
+      render current_user
     end
 
     def import

@@ -11,6 +11,7 @@
       data:
         user:
           daily_hours: $scope.data.dailyHours
-    .then ->
+    .then (response) ->
+      Auth._currentUser = response.data
       if $scope.currentPath is 'profile/ask'
         location.href = '/'
