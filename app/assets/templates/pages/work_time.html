@@ -20,9 +20,9 @@
   </div>
 </div>
 <ul class="lst timer-lst">
-  <li class="lst_i timer-lst_i" ng-class="{pointer: !day.is_missing}"
+  <li class="lst_i timer-lst_i"
       ng-repeat="day in data.days">
-    <div class="row" ng-click="day.showEdit = !day.showEdit">
+    <div class="row" ng-class="{pointer: !day.is_missing}" ng-click="day.showEdit = !day.showEdit">
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
         <span class="timer-lst_day">
           {{ 'date.day_names.'+(day.date | weekDay) | translate }}, 
@@ -42,7 +42,8 @@
             {{ day.overtime_minutes | minutesToHuman }}
           </span>
           (<span ng-repeat="interval in day.intervals">
-            {{ interval.time_in | time }} - {{ interval.time_out ? (interval.time_out | time) : ('pages.work_times.index.now' | translate) }}
+            {{ interval.time_in | time }} -
+            {{ interval.time_out ? (interval.time_out | time) : ('pages.work_times.index.now' | translate) }}
             <span ng-if="!$last">, </span>
           </span>)
         </div>
@@ -54,6 +55,7 @@
       </div>
       <div class="col-lg-2 col-sm-2 col-md-2" ng-show="interval.time_out != null">
           <input class="it" ng-model="interval.time_out" />
+          <day-picker interval="interval"></day-picker>
       </div>
       <div class="col-lg-2 col-sm-2 col-md-2">
         <button class="btn btn-warning" ng-click="updateInterval(interval)">{{ 'buttons.save' | translate }}</button>

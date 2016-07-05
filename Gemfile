@@ -51,6 +51,7 @@ gem 'rails-assets-angular-bootstrap', '~> 1.3.3'
 gem 'rails-assets-bootstrap', '3.3.6'
 gem 'rails-assets-moment', '~> 2.13.0'
 gem 'rails-assets-angular-devise', '~> 1.3.0'
+gem 'rails-assets-angular-click-outside', '~> 2.8.3'
 
 gem 'ngannotate-rails', '~> 1.2.2'
 gem 'angular_rails_csrf', '~> 1.0.4'

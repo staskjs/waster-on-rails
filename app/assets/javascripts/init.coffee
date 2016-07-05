@@ -2,6 +2,7 @@
   'ngRoute'
   'pascalprecht.translate'
   'Devise'
+  'angular-click-outside'
 ])
 .config ($httpProvider, $translateProvider, $locationProvider, Rails) ->
 

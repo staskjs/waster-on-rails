@@ -47,3 +47,36 @@ label {
   display: inline-block;
   margin-bottom: 5px;
 }
+
+.icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.icon-day-picker {
+  background: url(/assets/icons/calendar.png)
+}
+
+.day-picker {
+  /* display: inline-block; */
+}
+
+.day-picker .icon-day-picker {
+  position: absolute;
+  bottom: 11px;
+  right: 22px;
+}
+
+.day-picker-popover .popover {
+  left: 23px;
+  top: 32px;
+  width: 150px;
+  height: 60px;
+  text-align: center;
+}
+
+.day-picker-popover .popover .a {
+  text-decoration: underline;
+}
