@@ -8,6 +8,8 @@ set :rails_env, :production
 set :migration_role, :app
 set :migration_servers, -> { primary(fetch(:migration_role)) }
 
+set :whenever_roles, [:app]
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
