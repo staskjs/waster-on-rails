@@ -6,7 +6,7 @@ module ApplicationHelper
           .select do |file|
             file.end_with?('html', 'html.erb', 'json', 'json.erb')
           end
-          .map { |file, info| info['logical_path'] }
+          .map { |_file, info| info['logical_path'] }
           .map { |file| [file, asset_path(file)] }
       ]
     else
