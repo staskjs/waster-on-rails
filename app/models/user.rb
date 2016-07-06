@@ -6,6 +6,16 @@ class User < ActiveRecord::Base
   has_many :identities
   has_many :intervals
 
+  before_create :generate_auth_token
+
+  # Generate unique token
+  def generate_auth_token
+    self.auth_token = loop do
+      random_token = SecureRandom.urlsafe_base64(nil, false)
+      break random_token unless self.class.exists?(auth_token: random_token)
+    end
+  end
+
   def self.from_omniauth(auth)
     identity = Identity.find_for_oauth(auth)
     if identity.user.nil?
