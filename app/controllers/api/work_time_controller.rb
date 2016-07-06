@@ -37,7 +37,6 @@ module Api
       if attributes[:time_out].present?
         begin
           attributes[:time_out] = update_time(interval.time_out, attributes[:time_out], attributes[:date_out])
-          attributes.except!(:date_out)
         rescue
           render json: { error: 'errors.time_out.wrong' }, status: 406
           return
@@ -45,6 +44,7 @@ module Api
       end
 
       @processor = WorkTimeProcessor.new(current_user)
+      attributes.except!(:date_out)
 
       # Prevent deleting time_out from non-latest interval
       is_interval_latest = @processor.days.any? do |day|
