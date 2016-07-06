@@ -24,7 +24,7 @@
   '
 
   link: (scope, element, attrs) ->
-    scope.popoverVisible = true
+    scope.popoverVisible = false
 
     scope.prevDate = scope.interval.dateOut.clone().subtract(1, 'day')
 
