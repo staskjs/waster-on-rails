@@ -37,5 +37,8 @@
     if time_out = interval.time_out
       time_out = moment(interval.time_out, 'HH:mm').utc().format('HH:mm')
 
-    interval = {id, time_in, time_out}
+    if date_out = interval.dateOut
+      date_out = interval.dateOut.format('YYYY-MM-DD')
+
+    interval = {id, time_in, time_out, date_out}
     @$http.put('/api/work_time/update', interval: interval)

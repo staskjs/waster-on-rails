@@ -28,4 +28,8 @@
     date = date.clone().add(1, timeFrame)
     load()
 
+  $scope.selectPrevDate = (interval, prevDate) ->
+    interval.dateOut = prevDate
+    $scope.updateInterval(interval)
+
   load()

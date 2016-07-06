@@ -29,7 +29,7 @@ class Interval < ActiveRecord::Base
 
   def to_builder
     Jbuilder.new do |interval|
-      interval.(self, :id, :time_in, :time_out, :different_days)
+      interval.call(self, :id, :time_in, :time_out, :different_days)
     end
   end
 

@@ -5,6 +5,7 @@
 
   scope:
     interval: '='
+    onSelectPrevDate: '&'
 
   template: '
     <div class="day-picker" click-outside="close()" outside-if-not="icon-day-picker, day-picker-popover"
@@ -31,7 +32,7 @@
       scope.popoverVisible = not scope.popoverVisible
 
     scope.choosePrevDate = ->
-      console.log 'prev date chosen'
+      scope.onSelectPrevDate(interval: scope.interval, prevDate: scope.prevDate)
       scope.close()
 
     scope.close = ->

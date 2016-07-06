@@ -55,7 +55,7 @@
       </div>
       <div class="col-lg-2 col-sm-2 col-md-2" ng-show="interval.time_out != null">
           <input class="it" ng-model="interval.time_out" />
-          <day-picker interval="interval"></day-picker>
+          <day-picker interval="interval" on-select-prev-date="selectPrevDate(interval, prevDate)"></day-picker>
       </div>
       <div class="col-lg-2 col-sm-2 col-md-2">
         <button class="btn btn-warning" ng-click="updateInterval(interval)">{{ 'buttons.save' | translate }}</button>

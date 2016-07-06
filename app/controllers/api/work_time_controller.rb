@@ -24,7 +24,7 @@ module Api
         return
       end
 
-      attributes = params.require(:interval).permit(:time_in, :time_out)
+      attributes = params.require(:interval).permit(:time_in, :time_out, :date_out)
       if attributes[:time_in].present?
         begin
           attributes[:time_in] = update_time(interval.time_in, attributes[:time_in])
@@ -36,7 +36,8 @@ module Api
 
       if attributes[:time_out].present?
         begin
-          attributes[:time_out] = update_time(interval.time_out, attributes[:time_out])
+          attributes[:time_out] = update_time(interval.time_out, attributes[:time_out], attributes[:date_out])
+          attributes.except!(:date_out)
         rescue
           render json: { error: 'errors.time_out.wrong' }, status: 406
           return
@@ -67,13 +68,15 @@ module Api
 
     # Update given DateTime object's time by given value
     #
-    # @params time DateTime object
+    # @param time DateTime object
     # @param value string, representing time on HH:mm format (or any that Time.parse understands)
+    # @param date choose another date for given DateTime object
     #
     # @return new updated Time object
     #
-    def update_time(time, value)
+    def update_time(time, value, date = nil)
       value = Time.zone.parse(value)
+      time = DateTime.parse(date).utc if date.present?
       time.change(hour: value.hour, min: value.min)
     end
 
