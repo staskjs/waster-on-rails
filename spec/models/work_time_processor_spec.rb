@@ -81,6 +81,17 @@ describe 'WorkTimeProcessor' do
     # expect(@processor.days[3])
   end
 
+  it 'check other date' do
+    date = DateTime.new(2016, 4, 4)
+    WorkTimeProcessor.check(@user, date)
+    @processor = WorkTimeProcessor.new(@user, date)
+    expect(@processor.checked_out?).to eq false
+
+    WorkTimeProcessor.check(@user, date)
+    @processor = WorkTimeProcessor.new(@user, date)
+    expect(@processor.checked_out?).to eq true
+  end
+
   it 'day ends at' do
     expect(@processor.day_ends_at).to eq DateTime.current.change(hour: 20, min: 30)
   end

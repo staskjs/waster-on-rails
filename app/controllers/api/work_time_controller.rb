@@ -11,8 +11,7 @@ module Api
     end
 
     def check
-      @processor = WorkTimeProcessor.new(current_user)
-      @processor.check
+      WorkTimeProcessor.check(current_user, params[:date])
       render nothing: true
     end
 
