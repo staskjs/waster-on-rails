@@ -27,6 +27,7 @@ en:
   buttons:
     edit: Edit
     save: Save
+    save_missing: Check in
 
   pages:
     profile:
@@ -50,6 +51,8 @@ en:
         forward_month: Month forward
         back_week: Week back
         forward_week: Week forward
+        start: Start time
+        end: End time
 
         total_overtime: Total overtime
         total_undertime: Total undertime

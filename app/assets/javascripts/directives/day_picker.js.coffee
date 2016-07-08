@@ -26,6 +26,8 @@
   link: (scope, element, attrs) ->
     scope.popoverVisible = false
 
+    return unless scope.interval.dateOut?
+
     scope.prevDate = scope.interval.dateOut.clone().subtract(1, 'day')
 
     scope.togglePopover = ->

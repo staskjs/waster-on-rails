@@ -11,7 +11,16 @@ module Api
     end
 
     def check
-      WorkTimeProcessor.check(current_user, params[:date])
+      date = params[:date].present? ? DateTime.parse(params[:date]) : nil
+      time_in = nil
+      time_out = nil
+      if params[:time_in].present?
+        time_in = update_time(date, params[:time_in])
+      end
+      if params[:time_out].present?
+        time_out = update_time(date, params[:time_out])
+      end
+      WorkTimeProcessor.check(current_user, time_in, time_out)
       render nothing: true
     end
 

@@ -24,21 +24,33 @@
 
       response.data
 
-  check: ->
-    @$http.get('/api/work_time/check')
+  check: (date, timeIn, timeOut) ->
+    @$http
+      method: 'GET'
+      url: '/api/work_time/check'
+      params:
+        date: date
+        time_in: @_timeToUtc(timeIn)
+        time_out: @_timeToUtc(timeOut)
 
   updateInterval: (interval) ->
     id = interval.id
 
     # Get times in utc
     if time_in = interval.time_in
-      time_in = moment(interval.time_in, 'HH:mm').utc().format('HH:mm')
+      time_in = @_timeToUtc(time_in)
 
     if time_out = interval.time_out
-      time_out = moment(interval.time_out, 'HH:mm').utc().format('HH:mm')
+      time_out = @_timeToUtc(time_out)
 
     if date_out = interval.dateOut
       date_out = interval.dateOut.format('YYYY-MM-DD')
 
     interval = {id, time_in, time_out, date_out}
     @$http.put('/api/work_time/update', interval: interval)
+
+  _timeToUtc: (time) ->
+    if time
+      moment(time, 'HH:mm').utc().format('HH:mm')
+    else
+      null

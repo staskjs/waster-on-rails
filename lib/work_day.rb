@@ -5,6 +5,7 @@ class WorkDay < Hash
   # Update last interval with time_out
   def check_out
     intervals.last.update_attributes(time_out: Time.current)
+    intervals.last
   end
 
   # Overtime with sign

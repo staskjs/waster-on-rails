@@ -22,7 +22,7 @@
 <ul class="lst timer-lst">
   <li class="lst_i timer-lst_i"
       ng-repeat="day in data.days">
-    <div class="row" ng-class="{pointer: !day.is_missing}" ng-click="day.showEdit = !day.showEdit">
+    <div class="row pointer" ng-click="day.showEdit = !day.showEdit">
       <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
         <span class="timer-lst_day">
           {{ 'date.day_names.'+(day.date | weekDay) | translate }}, 
@@ -49,16 +49,24 @@
         </div>
       </div>
     </div>
-    <div ng-if="!day.is_missing && day.showEdit" class="row edit-form" ng-repeat="interval in day.editableIntervals">
+    <div ng-if="day.showEdit" class="row edit-form" ng-repeat="interval in day.editableIntervals">
       <div class="col-lg-2 col-sm-2 col-md-2" ng-show="interval.time_in != null">
-          <input class="it" ng-model="interval.time_in" />
+        <input class="it" ng-model="interval.time_in" />
+      </div>
+      <div class="col-lg-1 col-sm-1 col-md-1 edit-delimeter" ng-show="interval.time_out != null">
+        <span>-</span>
       </div>
       <div class="col-lg-2 col-sm-2 col-md-2" ng-show="interval.time_out != null">
-          <input class="it" ng-model="interval.time_out" />
-          <day-picker interval="interval" on-select-prev-date="selectPrevDate(interval, prevDate)"></day-picker>
+        <input class="it" ng-model="interval.time_out" />
+        <day-picker interval="interval" on-select-prev-date="selectPrevDate(interval, prevDate)"></day-picker>
       </div>
       <div class="col-lg-2 col-sm-2 col-md-2">
-        <button class="btn btn-warning" ng-click="updateInterval(interval)">{{ 'buttons.save' | translate }}</button>
+        <button class="btn btn-warning" ng-click="updateInterval(interval, day.date)">{{ 'buttons.save' | translate }}</button>
+      </div>
+    </div>
+    <div ng-if="!day.editableIntervals.length && day.is_missing && day.showEdit" class="row edit-form">
+      <div class="col-lg-2 col-sm-2 col-md-2">
+        <button class="btn btn-warning" ng-click="checkMissing(day)">{{ 'buttons.save_missing' | translate }}</button>
       </div>
     </div>
   </li>

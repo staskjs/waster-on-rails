@@ -15,10 +15,16 @@
       $location.search(date: formattedDate, last: last, time_frame: timeFrame)
 
   $scope.check = ->
-    WorkTime.check().then(load)
+    WorkTime.check(date).then(load)
 
-  $scope.updateInterval = (interval) ->
-    WorkTime.updateInterval(interval).then(load)
+  $scope.checkMissing = (day) ->
+    day.editableIntervals.push(time_in: '', time_out: '')
+
+  $scope.updateInterval = (interval, date) ->
+    if interval.id?
+      WorkTime.updateInterval(interval).then(load)
+    else
+      WorkTime.check(date, interval.time_in, interval.time_out).then(load)
 
   $scope.back = ->
     date = date.clone().subtract(1, timeFrame)

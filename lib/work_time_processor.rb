@@ -191,15 +191,15 @@ class WorkTimeProcessor
   # If user has unfinished day then check out
   # Else check in
   #
-  def self.check(user, date = nil)
-    date = DateTime.current if date.nil?
-    processor = WorkTimeProcessor.new(user, date)
+  def self.check(user, time_in = nil, time_out = nil)
+    time_in = DateTime.current if time_in.nil?
+    processor = WorkTimeProcessor.new(user, time_in)
     day = processor.with_missing_days.find do |day|
-      day.date.to_date == date.to_date
+      day.date.to_date == time_in.to_date
     end
 
     if day.is_finished
-      Interval.create(user_id: user.id, time_in: date)
+      Interval.create(user_id: user.id, time_in: time_in, time_out: time_out)
     else
       day.check_out
     end
