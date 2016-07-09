@@ -82,7 +82,7 @@ describe 'WorkTimeProcessor' do
   end
 
   it 'check other date' do
-    date = DateTime.new(2016, 4, 4).zone
+    date = DateTime.new(2016, 4, 4).utc
     WorkTimeProcessor.check(@user, date)
     @processor = WorkTimeProcessor.new(@user, date)
     expect(@processor.checked_out?).to eq false

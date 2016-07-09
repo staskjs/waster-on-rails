@@ -39,14 +39,19 @@ class WorkTimeProcessor
     end
   end
 
+  # Get user intervals that lie in selected date range
+  #
+  def intervals_in_range
+    @user.intervals
+    .where('DATE(time_in) BETWEEN ? AND ?', @date_range.begin.to_date, @date_range.end.to_date)
+    .order(:time_in)
+  end
+
   # Get statistics for selected user since the beginning of selected date
   # for selected time frame (week or month)
   #
   def calculate
-    intervals =
-      @user.intervals
-      .where('DATE(time_in) BETWEEN ? AND ?', @date_range.begin.to_date, @date_range.end.to_date)
-      .order(:time_in)
+    intervals = intervals_in_range
 
     # How many minutes is left to work
     @left_minutes = total_work_minutes
