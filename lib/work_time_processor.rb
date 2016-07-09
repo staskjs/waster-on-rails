@@ -7,6 +7,13 @@ class WorkTimeProcessor
   attr_reader :date_range
   attr_reader :time_frame
 
+  # Contains array of WorkDay elements which represent
+  # each new day use checked in
+  #
+  # @return array<WorkDay>
+  #
+  attr_reader :days
+
   def initialize(user, date = nil, time_frame = 'week', _count_last = 1)
     @user = user
     @days_off = [0, 6]
@@ -14,16 +21,28 @@ class WorkTimeProcessor
     @date = date
     @time_frame = time_frame
 
-    # Get statistics for selected user since the beginning of selected date
-    # for selected time frame (week or month)
     @date = Date.current if @date.nil?
 
-    @date_range =
-      case @time_frame
-      when 'week' then (@date.beginning_of_week..@date.end_of_week)
-      when 'month' then (@date.beginning_of_month..@date.end_of_month)
-      end
+    @date_range = determine_date_range
 
+    calculate
+
+  end
+
+  # Calculate range of dates between which intervals will be shown
+  # depending on given time frame
+  #
+  def determine_date_range
+    case @time_frame
+    when 'week' then (@date.beginning_of_week..@date.end_of_week)
+    when 'month' then (@date.beginning_of_month..@date.end_of_month)
+    end
+  end
+
+  # Get statistics for selected user since the beginning of selected date
+  # for selected time frame (week or month)
+  #
+  def calculate
     intervals =
       @user.intervals
       .where('DATE(time_in) BETWEEN ? AND ?', @date_range.begin.to_date, @date_range.end.to_date)
@@ -79,18 +98,11 @@ class WorkTimeProcessor
     if unfinished_day
       left_today = get_minutes_in_day(Date.current) - unfinished_day.total_worked
       left_today = @left_minutes if @left_minutes < left_today
-      @day_ends_at = Time.now + left_today * 60
+      @day_ends_at = Time.zone.now + left_today * 60
     end
 
     # TODO: when to finish work (distributed overtime between rest of days)
   end
-
-  # Contains array of WorkDay elements which represent
-  # each new day use checked in
-  #
-  # @return array<WorkDay>
-  #
-  attr_reader :days
 
   # Get how many minutes should be worked in a particular date
   #
@@ -194,8 +206,8 @@ class WorkTimeProcessor
   def self.check(user, time_in = nil, time_out = nil)
     time_in = DateTime.current if time_in.nil?
     processor = WorkTimeProcessor.new(user, time_in)
-    day = processor.with_missing_days.find do |day|
-      day.date.to_date == time_in.to_date
+    day = processor.with_missing_days.find do |d|
+      d.date.to_date == time_in.to_date
     end
 
     if day.is_finished

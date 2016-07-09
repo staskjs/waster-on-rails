@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
-  before_action :check_auth_token, if: ->{ params[:auth_token].present? }
+  before_action :check_auth_token, if: -> { params[:auth_token].present? }
 
   def index
     render layout: 'application'
@@ -35,12 +35,10 @@ class ApplicationController < ActionController::Base
 
   # Find user by auth token and authenticate if found
   def check_auth_token
-    unless user_signed_in?
-      user = User.find_by_auth_token(params[:auth_token])
-      if user
-        sign_in user
-      end
-    end
+    return if user_signed_in?
+
+    user = User.find_by_auth_token(params[:auth_token])
+    sign_in user if user
   end
 
 end

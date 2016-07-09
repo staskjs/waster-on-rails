@@ -11,12 +11,10 @@ module Api
     end
 
     def check
-      date = params[:date].present? ? DateTime.parse(params[:date]) : nil
+      date = params[:date].present? ? DateTime.parse(params[:date]).in_time_zone : nil
       time_in = nil
       time_out = nil
-      if params[:time_in].present?
-        time_in = update_time(date, params[:time_in])
-      end
+      time_in = update_time(date, params[:time_in]) if params[:time_in].present?
       if params[:time_out].present?
         time_out = update_time(date, params[:time_out])
       end

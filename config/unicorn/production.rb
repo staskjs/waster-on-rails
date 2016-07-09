@@ -1,3 +1,4 @@
+# rubocop:disable Lint/HandleExceptions
 # paths
 app_path = '/home/karpov/projects/new_waster'
 working_directory "#{app_path}/current"
