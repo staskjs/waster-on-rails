@@ -14,7 +14,7 @@ class WorkTimeProcessor
   #
   attr_reader :days
 
-  def initialize(user, date = nil, time_frame = 'week', _count_last = 1)
+  def initialize(user, date = nil, time_frame = 'week', count_last = 1)
     @user = user
     @days_off = [0, 6]
 
@@ -26,6 +26,12 @@ class WorkTimeProcessor
     @date_range = determine_date_range
 
     calculate
+
+    if count_last > 1
+      prev_date = @date - 7.days
+      processor = WorkTimeProcessor.new(user, prev_date, time_frame, count_last - 1)
+      @total_overtime += processor.total_overtime
+    end
 
   end
 

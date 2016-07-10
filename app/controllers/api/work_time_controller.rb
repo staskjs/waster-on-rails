@@ -6,7 +6,7 @@ module Api
     def index
       date = params[:date] ? Date.parse(params[:date]) : nil
       time_frame = params[:time_frame] ? params[:time_frame] : 'week'
-      last = params[:last] ? params[:last] : 1
+      last = params[:last] ? params[:last].to_i : 1
       @processor = WorkTimeProcessor.new(current_user, date, time_frame, last)
     end
 
