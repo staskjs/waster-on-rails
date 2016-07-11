@@ -41,12 +41,17 @@
       resolve: {mainPageResolver}
     )
     .when('/profile',
-      templateUrl: 'pages/users/profile.html'
+      templateUrl: 'pages/users/profile/index.html'
       controller: 'ProfileCtrl'
       resolve: {authResolver}
     )
+    .when('/profile/account',
+      templateUrl: 'pages/users/profile/account.html'
+      controller: 'AccountCtrl'
+      resolve: {authResolver}
+    )
     .when('/profile/ask',
-      templateUrl: 'pages/users/ask.html'
+      templateUrl: 'pages/users/profile/ask.html'
       controller: 'ProfileCtrl'
       resolve: {authResolver}
     )

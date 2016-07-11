@@ -34,6 +34,10 @@ en:
       index:
         daily_hours: How long your working day lasts (in hours)?
 
+      menu:
+        settings: Settings
+        account: Account
+
     users:
       sign_in:
         title: Sign In

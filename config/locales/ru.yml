@@ -16,6 +16,10 @@ ru:
       index:
         daily_hours: Сколько длится ваш рабочий день (в часах)?
 
+      menu:
+        settings: Настройки
+        account: Аккаунт
+
     users:
       sign_in:
         title: Вход
