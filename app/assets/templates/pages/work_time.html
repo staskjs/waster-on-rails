@@ -63,6 +63,9 @@
       <div class="col-lg-2 col-sm-2 col-md-2">
         <button class="btn btn-warning" ng-click="updateInterval(interval, day.date)">{{ 'buttons.save' | translate }}</button>
       </div>
+      <div class="col-lg-2 col-sm-2 col-md-2" ng-show="interval.time_out == null">
+        <button class="btn btn-warning" ng-click="checkUnchecked(interval)">{{ 'pages.work_times.index.check_out' | translate }}</button>
+      </div>
     </div>
     <div ng-if="!day.editableIntervals.length && day.is_missing && day.showEdit" class="row edit-form">
       <div class="col-lg-2 col-sm-2 col-md-2">

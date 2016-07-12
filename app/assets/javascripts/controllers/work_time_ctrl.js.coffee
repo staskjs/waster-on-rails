@@ -20,6 +20,9 @@
   $scope.checkMissing = (day) ->
     day.editableIntervals.push(time_in: '', time_out: '')
 
+  $scope.checkUnchecked = (interval) ->
+    interval.time_out = ''
+
   $scope.updateInterval = (interval, date) ->
     if interval.id?
       WorkTime.updateInterval(interval).then(load)

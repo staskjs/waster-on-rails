@@ -16,7 +16,9 @@
       response.data.days.forEach (day) =>
         day.editableIntervals = angular.copy(day.intervals).map (interval) =>
           interval.dateIn = moment(interval.time_in)
-          interval.dateOut = moment(interval.time_out)
+          if interval.time_out
+            interval.dateOut = moment(interval.time_out)
+
           interval.time_in = @$filter('time')(interval.time_in)
           if interval.time_out
             interval.time_out = @$filter('time')(interval.time_out)

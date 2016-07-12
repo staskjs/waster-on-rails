@@ -11,7 +11,7 @@ module Api
     end
 
     def check
-      date = params[:date].present? ? DateTime.parse(params[:date]).in_time_zone : nil
+      date = params[:date].present? ? DateTime.parse(params[:date]) : nil
       time_in = nil
       time_out = nil
       time_in = update_time(date, params[:time_in]) if params[:time_in].present?
@@ -42,7 +42,8 @@ module Api
 
       if attributes[:time_out].present?
         begin
-          attributes[:time_out] = update_time(interval.time_out, attributes[:time_out], attributes[:date_out])
+          time = interval.time_out || interval.time_in
+          attributes[:time_out] = update_time(time, attributes[:time_out], attributes[:date_out])
         rescue
           render json: { error: 'errors.time_out.wrong' }, status: 406
           return
