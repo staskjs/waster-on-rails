@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       get 'locale/:locale', action: :locale
       get 'import'
       put 'profile'
+      get 'providers'
     end
   end
 

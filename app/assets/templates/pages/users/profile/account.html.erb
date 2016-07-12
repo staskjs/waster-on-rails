@@ -1,0 +1,28 @@
+<% self.class.include Rails.application.routes.url_helpers %>
+<ng-include include-replace src="'pages/users/profile/menu.html'"></ng-include>
+
+<div class="row">
+  <div class="col-lg-12">
+    <fieldset>
+      <legend>{{ 'pages.profile.account.connected_accounts' | translate }}</legend>
+      <div class="form-group">
+        VKontakte
+        <a target="_self" href="<%= user_omniauth_authorize_path(:vkontakte) %>" ng-show="!providers.vkontakte">
+          {{ 'pages.profile.account.connect' | translate }}
+        </a>
+        <a href="" ng-click="disconnect()" ng-show="providers.vkontakte && connectedCount > 1">
+          {{ 'pages.profile.account.disconnect' | translate }}
+        </a>
+      </div>
+      <div class="form-group">
+        Google
+        <a target="_self" href="<%= user_omniauth_authorize_path(:google_oauth2) %>" ng-show="!providers.google_oauth2">
+          {{ 'pages.profile.account.connect' | translate }}
+        </a>
+        <a href="" ng-click="disconnect()" ng-show="providers.google_oauth2 && connectedCount > 1">
+          {{ 'pages.profile.account.disconnect' | translate }}
+        </a>
+      </div>
+    </fieldset>
+  </div>
+</div>

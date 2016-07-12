@@ -28,6 +28,14 @@ module Api
       render text: 'Import started'
     end
 
+    def providers
+      providers = [:vkontakte, :google_oauth2].each_with_object({}) do |provider_name, hash|
+        hash[provider_name] = current_user.identities.where(provider: provider_name).exists?
+      end
+
+      render json: providers
+    end
+
     private
 
     def profile_attributes

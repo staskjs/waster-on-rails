@@ -16,6 +16,11 @@ ru:
       index:
         daily_hours: Сколько длится ваш рабочий день (в часах)?
 
+      account:
+        connected_accounts: Связанные аккаунты
+        connect: Подключить
+        disconnect: Отключить
+
       menu:
         settings: Настройки
         account: Аккаунт
