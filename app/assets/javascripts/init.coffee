@@ -11,7 +11,7 @@
   $httpProvider.interceptors.push('railsAssetsInterceptor')
 
   $translateProvider.useLoader('railsLocalesLoader')
-  $translateProvider.preferredLanguage(Rails.locale)
+  $translateProvider.preferredLanguage(window.locale)
 
 .config ($routeProvider) ->
 
