@@ -27,3 +27,4 @@
 //= require_tree ./controllers
 //= require_directory ./services
 //= require_directory ./directives
+//= require ./js_env
