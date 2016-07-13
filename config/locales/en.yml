@@ -68,6 +68,10 @@ en:
         left_to_work: Left to work
         work_day_ends_at: Work day ends at
 
+    main:
+      description: Welcome to Waster
+      description2: Please sign in to start tracking your time.
+
   menu:
     sign_in: Sign In
     sign_out: Sign Out

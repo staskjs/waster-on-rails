@@ -50,6 +50,10 @@ ru:
         left_to_work: Осталось работать
         work_day_ends_at: Конец рабочего дня в
 
+    main:
+      description: Добро пожаловать на Waster
+      description2: Пожалуйста войдите, чтобы начать отслеживать свое время.
+
   menu:
     sign_in: Вход
     sign_out: Выход
