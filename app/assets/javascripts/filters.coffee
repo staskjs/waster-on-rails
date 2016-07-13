@@ -5,6 +5,7 @@
 
 .filter 'shortDate', ($filter) ->
   (date) ->
+    return '' unless date?
     month = $filter('translate')("date.month_names.#{moment(date).format('M')}")
     day = moment(date).format('D')
     $filter('translate')('date.work_time', {month: month, day: day})
