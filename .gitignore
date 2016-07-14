@@ -13,3 +13,5 @@
 /tmp
 
 config/application.yml
+config/deploy/*
+.rubocop.yml
