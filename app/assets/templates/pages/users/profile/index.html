@@ -6,6 +6,31 @@
       <input type="text" ng-model="data.dailyHours" class="it" />
     </div>
     <div class="form-group">
+      <label>{{ 'pages.profile.index.days_off' | translate }}</label>
+    </div>
+    <div class="form-group">
+      <input type="checkbox" ng-model="data.daysOff[0]" />
+      <label>{{ 'date.day_names.0' | translate }}</label>
+
+      <input type="checkbox" ng-model="data.daysOff[1]" />
+      <label>{{ 'date.day_names.1' | translate }}</label>
+
+      <input type="checkbox" ng-model="data.daysOff[2]" />
+      <label>{{ 'date.day_names.2' | translate }}</label>
+
+      <input type="checkbox" ng-model="data.daysOff[3]" />
+      <label>{{ 'date.day_names.3' | translate }}</label>
+
+      <input type="checkbox" ng-model="data.daysOff[4]" />
+      <label>{{ 'date.day_names.4' | translate }}</label>
+
+      <input type="checkbox" ng-model="data.daysOff[5]" />
+      <label>{{ 'date.day_names.5' | translate }}</label>
+
+      <input type="checkbox" ng-model="data.daysOff[6]" />
+      <label>{{ 'date.day_names.6' | translate }}</label>
+    </div>
+    <div class="form-group">
       <button class="btn" ng-click="save()">{{ 'buttons.save' | translate }}</button>
     </div>
   </div>

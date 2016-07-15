@@ -16,7 +16,12 @@ class WorkTimeProcessor
 
   def initialize(user, date = nil, time_frame = 'week', count_last = 1)
     @user = user
-    @days_off = [0, 6]
+    @days_off =
+      if user.days_off.present?
+        user.days_off.split(',').map(&:to_i)
+      else
+        [0, 6]
+      end
 
     @date = date
     @time_frame = time_frame

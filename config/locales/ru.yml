@@ -15,6 +15,7 @@ ru:
     profile:
       index:
         daily_hours: Сколько длится ваш рабочий день (в часах)?
+        days_off: Выходные
 
       account:
         connected_accounts: Связанные аккаунты

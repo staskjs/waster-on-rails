@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'WorkTimeProcessor' do
   before :each do
-    @user = create(:user, daily_hours: 8.5)
+    @user = create(:user, daily_hours: 8.5, days_off: '0,6')
     @user.intervals << create(:interval, time_in: '2016-04-30 11:00', time_out: '2016-04-30 17:00')
     @user.intervals << create(:interval, time_in: '2016-05-01 08:00', time_out: '2016-05-01 21:00')
     @user.intervals << create(:interval, time_in: '2016-05-02 10:00', time_out: '2016-05-02 17:00')
@@ -44,7 +44,7 @@ describe 'WorkTimeProcessor' do
 
   # Empty week has 0 overtime, because all days are not finished
   it 'total_overtime in empty week' do
-    user2 = create(:user)
+    user2 = create(:user, days_off: '0,6')
     @processor = WorkTimeProcessor.new(user2)
     expect(@processor.total_overtime).to eq 0
   end

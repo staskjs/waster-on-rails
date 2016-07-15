@@ -39,7 +39,7 @@ module Api
     private
 
     def profile_attributes
-      params.require(:user).permit(:daily_hours)
+      params.require(:user).permit(:daily_hours, :days_off)
     end
 
   end

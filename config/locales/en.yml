@@ -33,6 +33,7 @@ en:
     profile:
       index:
         daily_hours: How long your working day lasts (in hours)?
+        days_off: Days off
 
       account:
         connected_accounts: Connected accounts
