@@ -12,10 +12,6 @@ and then click finish.
 
 ## TODO
 
-* Main page
-
 * About page
-
-* Ability to connect multiple Oauth providers to a single account
 
 * Ability to use multiple timers for different purposes
