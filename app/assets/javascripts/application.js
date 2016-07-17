@@ -21,6 +21,7 @@
 //= require angular-bootstrap
 //= require angular-devise
 //= require angular-click-outside
+//= require angular-http-case-converter
 //
 //= require ./init
 //= require ./filters

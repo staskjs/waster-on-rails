@@ -3,8 +3,10 @@
   'pascalprecht.translate'
   'Devise'
   'angular-click-outside'
+  'ee.$http.CaseConverter.request.camelToSnake'
+  'ee.$http.CaseConverter.response.snakeToCamel'
 ])
-.config ($httpProvider, $translateProvider, $locationProvider, Rails) ->
+.config ($httpProvider, $translateProvider, $locationProvider, Rails, eeHttpCaseConverterProvider) ->
 
   $locationProvider.html5Mode(true)
 
@@ -12,6 +14,9 @@
 
   $translateProvider.useLoader('railsLocalesLoader')
   $translateProvider.preferredLanguage(window.locale)
+
+  eeHttpCaseConverterProvider.responseUrlFilter = (url) ->
+    return not url.has('assets')
 
 .config ($routeProvider) ->
 
@@ -30,7 +35,7 @@
   dailyHoursResolver = (Auth, $location) ->
     'ngInject'
     Auth.currentUser().then (user) ->
-      if user? and (not user.daily_hours? or user.daily_hours is 0)
+      if user? and (not user.dailyHours? or user.dailyHours is 0)
         $location.path '/profile/ask'
     .catch(angular.noop)
 

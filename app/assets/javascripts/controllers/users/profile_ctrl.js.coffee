@@ -2,11 +2,11 @@
   $scope.data = {}
 
   Auth.currentUser().then (user) ->
-    $scope.data.dailyHours = user.daily_hours
+    $scope.data.dailyHours = user.dailyHours
     $scope.data.daysOff = new Array(7).fill(false)
 
-    if user.days_off?
-      user.days_off.split(',').forEach (dayOff) ->
+    if user.daysOff?
+      user.daysOff.split(',').forEach (dayOff) ->
         $scope.data.daysOff[dayOff] = true
 
   $scope.save = ->
@@ -15,8 +15,8 @@
       url: '/api/users/profile'
       data:
         user:
-          daily_hours: $scope.data.dailyHours
-          days_off: formatDaysOff()
+          dailyHours: $scope.data.dailyHours
+          daysOff: formatDaysOff()
     .then (response) ->
       Auth._currentUser = response.data
       if $scope.currentPath is 'profile/ask'

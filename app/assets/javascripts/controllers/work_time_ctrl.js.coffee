@@ -18,16 +18,16 @@
     WorkTime.check(date).then(load)
 
   $scope.checkMissing = (day) ->
-    day.editableIntervals.push(time_in: '', time_out: '')
+    day.editableIntervals.push(timeIn: '', timeOut: '')
 
   $scope.checkUnchecked = (interval) ->
-    interval.time_out = ''
+    interval.timeOut = ''
 
   $scope.updateInterval = (interval, date) ->
     if interval.id?
       WorkTime.updateInterval(interval).then(load)
     else
-      WorkTime.check(date, interval.time_in, interval.time_out).then(load)
+      WorkTime.check(date, interval.timeIn, interval.timeOut).then(load)
 
   $scope.back = ->
     date = date.clone().subtract(1, timeFrame)

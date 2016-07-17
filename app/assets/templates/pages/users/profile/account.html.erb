@@ -16,10 +16,10 @@
       </div>
       <div class="form-group">
         Google
-        <a target="_self" href="<%= user_omniauth_authorize_path(:google_oauth2) %>" ng-show="!providers.google_oauth2">
+        <a target="_self" href="<%= user_omniauth_authorize_path(:google_oauth2) %>" ng-show="!providers.googleOauth2">
           {{ 'pages.profile.account.connect' | translate }}
         </a>
-        <a href="" ng-click="disconnect()" ng-show="providers.google_oauth2 && connectedCount > 1">
+        <a href="" ng-click="disconnect()" ng-show="providers.googleOauth2 && connectedCount > 1">
           {{ 'pages.profile.account.disconnect' | translate }}
         </a>
       </div>

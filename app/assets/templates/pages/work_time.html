@@ -1,20 +1,20 @@
 <div class="row">
   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-2 pull-left">
     <a href="" ng-click="back()">
-      <span ng-show="data.time_frame == 'week'">{{ 'pages.work_times.index.back_week' | translate }}</span>
-      <span ng-show="data.time_frame == 'month'">{{ 'pages.work_times.index.back_month' | translate }}</span>
+      <span ng-show="data.timeFrame == 'week'">{{ 'pages.work_times.index.back_week' | translate }}</span>
+      <span ng-show="data.timeFrame == 'month'">{{ 'pages.work_times.index.back_month' | translate }}</span>
     </a>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-8">
     <div class="center-block time-frame" ng-show="data">
-      {{ data.range_begin | shortDate }} - {{ data.range_end | shortDate }}
+      {{ data.rangeBegin | shortDate }} - {{ data.rangeEnd | shortDate }}
     </div>
   </div>
   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-2">
     <div class="pull-right">
       <a href="" ng-click="forward()">
-        <span ng-show="data.time_frame == 'week'">{{ 'pages.work_times.index.forward_week' | translate }}</span>
-        <span ng-show="data.time_frame == 'month'">{{ 'pages.work_times.index.forward_month' | translate }}</span>
+        <span ng-show="data.timeFrame == 'week'">{{ 'pages.work_times.index.forward_week' | translate }}</span>
+        <span ng-show="data.timeFrame == 'month'">{{ 'pages.work_times.index.forward_month' | translate }}</span>
       </a>
     </div>
   </div>
@@ -30,44 +30,44 @@
         </span>
       </div>
       <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-        <span class="red" ng-show="day.is_missing && day.is_day_off">
+        <span class="red" ng-show="day.isMissing && day.isDayOff">
           {{ 'pages.work_times.index.day_off' | translate }}
         </span>
-        <span class="red" ng-show="day.is_missing && !day.is_day_off">
+        <span class="red" ng-show="day.isMissing && !day.isDayOff">
           {{ 'pages.work_times.index.missing_day' | translate }}
         </span>
-        <div ng-show="!day.is_missing">
-          {{ day.total_worked | minutesToHuman }},
-          <span ng-class="{overtime: day.is_overtime, undertime: !day.is_overtime && day.overtime_minutes > 0}">
-            {{ day.overtime_minutes | minutesToHuman }}
+        <div ng-show="!day.isMissing">
+          {{ day.totalWorked | minutesToHuman }},
+          <span ng-class="{overtime: day.isOvertime, undertime: !day.isUndertime && day.overtimeMinutes > 0}">
+            {{ day.overtimeMinutes | minutesToHuman }}
           </span>
           (<span ng-repeat="interval in day.intervals">
-            {{ interval.time_in | time }} -
-            {{ interval.time_out ? (interval.time_out | time) : ('pages.work_times.index.now' | translate) }}
+            {{ interval.timeIn | time }} -
+            {{ interval.timeOut ? (interval.timeOut | time) : ('pages.work_times.index.now' | translate) }}
             <span ng-if="!$last">, </span>
           </span>)
         </div>
       </div>
     </div>
     <div ng-if="day.showEdit" class="row edit-form" ng-repeat="interval in day.editableIntervals">
-      <div class="col-lg-2 col-sm-2 col-md-2" ng-show="interval.time_in != null">
-        <input class="it" ng-model="interval.time_in" />
+      <div class="col-lg-2 col-sm-2 col-md-2" ng-show="interval.timeIn != null">
+        <input class="it" ng-model="interval.timeIn" />
       </div>
-      <div class="col-lg-1 col-sm-1 col-md-1 edit-delimeter" ng-show="interval.time_out != null">
+      <div class="col-lg-1 col-sm-1 col-md-1 edit-delimeter" ng-show="interval.timeOut != null">
         <span>-</span>
       </div>
-      <div class="col-lg-2 col-sm-2 col-md-2" ng-show="interval.time_out != null">
-        <input class="it" ng-model="interval.time_out" />
+      <div class="col-lg-2 col-sm-2 col-md-2" ng-show="interval.timeOut != null">
+        <input class="it" ng-model="interval.timeOut" />
         <day-picker interval="interval" on-select-prev-date="selectPrevDate(interval, prevDate)"></day-picker>
       </div>
       <div class="col-lg-2 col-sm-2 col-md-2">
         <button class="btn btn-warning" ng-click="updateInterval(interval, day.date)">{{ 'buttons.save' | translate }}</button>
       </div>
-      <div class="col-lg-2 col-sm-2 col-md-2" ng-show="interval.time_out == null">
+      <div class="col-lg-2 col-sm-2 col-md-2" ng-show="interval.timeOut == null">
         <button class="btn btn-warning" ng-click="checkUnchecked(interval)">{{ 'pages.work_times.index.check_out' | translate }}</button>
       </div>
     </div>
-    <div ng-if="!day.editableIntervals.length && day.is_missing && day.showEdit" class="row edit-form">
+    <div ng-if="!day.editableIntervals.length && day.isMissing && day.showEdit" class="row edit-form">
       <div class="col-lg-2 col-sm-2 col-md-2">
         <button class="btn btn-warning" ng-click="checkMissing(day)">{{ 'buttons.save_missing' | translate }}</button>
       </div>
@@ -78,21 +78,21 @@
 
 <div class="result">
   <div class="result_overunder">
-    <span ng-show="data.total_overtime >= 0">
+    <span ng-show="data.totalOvertime >= 0">
       {{ 'pages.work_times.index.total_overtime' | translate }}:
-      {{ data.total_overtime | minutesToHuman }}
+      {{ data.totalOvertime | minutesToHuman }}
     </span>
-    <span ng-show="data.total_overtime < 0">
+    <span ng-show="data.totalOvertime < 0">
       {{ 'pages.work_times.index.total_undertime' | translate }}:
-      {{ data.total_overtime | minutesToHuman }}
+      {{ data.totalOvertime | minutesToHuman }}
     </span>
   </div>
 
-  <div class="result_work" ng-show="!data.range_finished">
-    {{ 'pages.work_times.index.left_to_work' | translate }}: {{ data.left_minutes | minutesToHuman }}
+  <div class="result_work" ng-show="!data.rangeFinished">
+    {{ 'pages.work_times.index.left_to_work' | translate }}: {{ data.leftMinutes | minutesToHuman }}
   </div>
-  <div class="result_finish" ng-show="!data.checked_out">
-    {{ 'pages.work_times.index.work_day_ends_at' | translate }}: {{ data.day_ends_at | date: 'HH:mm' }}
+  <div class="result_finish" ng-show="!data.checkedOut">
+    {{ 'pages.work_times.index.work_day_ends_at' | translate }}: {{ data.dayEndsAt | date: 'HH:mm' }}
   </div>
   <!-- <div class="result_advice"> -->
     <!-- Рекомендуемый конец рабочего дня в 18:54 -->
@@ -100,7 +100,7 @@
 
   <br>
   <div>
-    <button ng-show="data.checked_out" class="btn btn-primary" ng-click="check()">{{ 'pages.work_times.index.check_in' | translate }}</button>
-    <button ng-show="!data.checked_out" class="btn btn-primary" ng-click="check()">{{ 'pages.work_times.index.check_out' | translate }}</button>
+    <button ng-show="data.checkedOut" class="btn btn-primary" ng-click="check()">{{ 'pages.work_times.index.check_in' | translate }}</button>
+    <button ng-show="!data.checkedOut" class="btn btn-primary" ng-click="check()">{{ 'pages.work_times.index.check_out' | translate }}</button>
   </div>
 </div>

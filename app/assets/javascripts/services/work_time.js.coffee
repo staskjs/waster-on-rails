@@ -10,18 +10,18 @@
 
       # Remove all days after last checked in day
       # (that is a last non-missing day)
-      missings = response.data.days.map('is_missing')
+      missings = response.data.days.map('isMissing')
 
       response.data.days = response.data.days[0..(missings.lastIndexOf(false))]
       response.data.days.forEach (day) =>
         day.editableIntervals = angular.copy(day.intervals).map (interval) =>
-          interval.dateIn = moment(interval.time_in)
-          if interval.time_out
-            interval.dateOut = moment(interval.time_out)
+          interval.dateIn = moment(interval.timeIn)
+          if interval.timeOut
+            interval.dateOut = moment(interval.timeOut)
 
-          interval.time_in = @$filter('time')(interval.time_in)
-          if interval.time_out
-            interval.time_out = @$filter('time')(interval.time_out)
+          interval.timeIn = @$filter('time')(interval.timeIn)
+          if interval.timeOut
+            interval.timeOut = @$filter('time')(interval.timeOut)
           interval
 
       response.data
@@ -32,23 +32,23 @@
       url: '/api/work_time/check'
       params:
         date: date
-        time_in: @_timeToUtc(timeIn)
-        time_out: @_timeToUtc(timeOut)
+        timeIn: @_timeToUtc(timeIn)
+        timeOut: @_timeToUtc(timeOut)
 
   updateInterval: (interval) ->
     id = interval.id
 
     # Get times in utc
-    if time_in = interval.time_in
-      time_in = @_timeToUtc(time_in)
+    if timeIn = interval.timeIn
+      timeIn = @_timeToUtc(timeIn)
 
-    if time_out = interval.time_out
-      time_out = @_timeToUtc(time_out)
+    if timeOut = interval.timeOut
+      timeOut = @_timeToUtc(timeOut)
 
-    if date_out = interval.dateOut
-      date_out = interval.dateOut.format('YYYY-MM-DD')
+    if dateOut = interval.dateOut
+      dateOut = interval.dateOut.format('YYYY-MM-DD')
 
-    interval = {id, time_in, time_out, date_out}
+    interval = {id, timeIn, timeOut, dateOut}
     @$http.put('/api/work_time/update', interval: interval)
 
   _timeToUtc: (time) ->
