@@ -38,7 +38,7 @@
         </span>
         <div ng-show="!day.isMissing">
           {{ day.totalWorked | minutesToHuman }},
-          <span ng-class="{overtime: day.isOvertime, undertime: !day.isUndertime && day.overtimeMinutes > 0}">
+          <span ng-class="{overtime: day.isOvertime, undertime: !day.isOvertime && day.overtimeMinutes > 0}">
             {{ day.overtimeMinutes | minutesToHuman }}
           </span>
           (<span ng-repeat="interval in day.intervals">
