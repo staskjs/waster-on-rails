@@ -10,7 +10,7 @@
         <a target="_self" href="<%= user_omniauth_authorize_path(:vkontakte) %>" ng-show="!providers.vkontakte">
           {{ 'pages.profile.account.connect' | translate }}
         </a>
-        <a href="" ng-click="disconnect()" ng-show="providers.vkontakte && connectedCount > 1">
+        <a href="" ng-click="disconnect('vkontakte')" ng-show="providers.vkontakte && connectedCount > 1">
           {{ 'pages.profile.account.disconnect' | translate }}
         </a>
       </div>
@@ -19,7 +19,7 @@
         <a target="_self" href="<%= user_omniauth_authorize_path(:google_oauth2) %>" ng-show="!providers.googleOauth2">
           {{ 'pages.profile.account.connect' | translate }}
         </a>
-        <a href="" ng-click="disconnect()" ng-show="providers.googleOauth2 && connectedCount > 1">
+        <a href="" ng-click="disconnect('google_oauth2')" ng-show="providers.googleOauth2 && connectedCount > 1">
           {{ 'pages.profile.account.disconnect' | translate }}
         </a>
       </div>

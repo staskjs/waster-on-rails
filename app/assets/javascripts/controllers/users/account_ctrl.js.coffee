@@ -8,6 +8,12 @@
       $scope.connectedCount = Object.values(response.data).compact(true).length
 
 
-  $scope.disconnect = ->
+  $scope.disconnect = (providerName) ->
+    $http
+      method: 'DELETE'
+      url: '/api/users/providers'
+      params:
+        provider: providerName
+    .then(getProviders)
 
   getProviders()

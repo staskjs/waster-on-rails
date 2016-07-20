@@ -36,6 +36,12 @@ module Api
       render json: providers
     end
 
+    def disconnect
+      current_user.identities.where(provider: params[:provider]).first.delete
+
+      render nothing: true
+    end
+
     private
 
     def profile_attributes
